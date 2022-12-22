@@ -1,2 +1,11 @@
 <p>ticket-all works!</p>
-<app-ticket></app-ticket>
+
+
+<!-- <p> {{ tickets  }}</p> -->
+<ul *ngFor="let ticket of tickets">
+    <li>{{ ticket.url }}</li>
+    <li>{{ ticket.title }}</li>
+    <li>{{ ticket.description }}</li>
+    <li>{{ ticket.creationDate }}</li>
+</ul>
+<!-- <app-ticket *ngFor="let ticket of tickets" [ticket] = 'ticket'></app-ticket> -->
