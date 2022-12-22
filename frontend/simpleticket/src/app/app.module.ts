@@ -8,6 +8,9 @@ import { TicketAllComponent } from './components/ticket-all/ticket-all.component
 import { TicketComponent } from './components/ticket/ticket.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +21,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
