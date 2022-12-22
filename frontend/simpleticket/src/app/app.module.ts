@@ -9,6 +9,9 @@ import { TicketComponent } from './components/ticket/ticket.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TicketCreateComponent } from './components/ticket-create/ticket-create.component';
+import { TicketFormComponent } from './components/ticket-form/ticket-form.component';
 
 
 @NgModule({
@@ -17,12 +20,15 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     TicketAllComponent,
     TicketComponent,
-    NavbarComponent
+    NavbarComponent,
+    TicketCreateComponent,
+    TicketFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

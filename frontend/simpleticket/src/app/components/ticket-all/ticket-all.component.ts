@@ -7,6 +7,7 @@ import { Ticket } from 'src/app/models/ticket';
   templateUrl: './ticket-all.component.html',
   styleUrls: ['./ticket-all.component.scss']
 })
+
 export class TicketAllComponent implements OnInit {
   tickets: Ticket[] | undefined;
 
