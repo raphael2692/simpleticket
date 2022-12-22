@@ -3,6 +3,7 @@ import { User } from './user';
 
 export class Ticket {
     url : string = "";
+    id: number = 0;
     title : string = "";
     description : string = "";
     creationDate : Date = new Date();

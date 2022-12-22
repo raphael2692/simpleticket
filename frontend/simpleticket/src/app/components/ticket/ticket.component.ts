@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Ticket } from 'src/app/models/ticket';
+import { TicketService } from 'src/app/services/ticket.service';
 
 @Component({
   selector: 'app-ticket',
@@ -8,13 +9,14 @@ import { Ticket } from 'src/app/models/ticket';
 })
 export class TicketComponent implements OnInit {
 
-  // @Input()
-  // ticket!: Ticket;
-
-  constructor() { }
+  @Input()
+  ticketUrl!: string;
+  ticket!: Ticket;
+  constructor(private api: TicketService) { }
 
   ngOnInit(): void {
-    
+    this.api.getTicket(this.ticketUrl)
+      .subscribe((data: Ticket) => this.ticket = data);
   }
 
 }

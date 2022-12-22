@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Ticket } from '../models/ticket';
 import { map } from 'rxjs';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +15,10 @@ export class TicketService {
   getTickets() {
     return this.http.get<Ticket[]>('http://localhost:8000/tickets/')
 
+  }
+
+  getTicket(ticketUrl: string) {
+    return this.http.get<Ticket>(ticketUrl)
   }
 
 }
