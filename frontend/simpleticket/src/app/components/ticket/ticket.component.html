@@ -1,7 +1,13 @@
 <div>
     <ul>
-        <li> {{ ticket.title }}</li>
+        <li>Resource url:</li>
+        <li> {{ url }}</li>
     </ul>
+</div>
+
+<div>
+    <p>Data:</p>
+    <p>{{ ticket | json }}</p>
 </div>
 
 <!-- <div> {{ ticket | json }}</div> -->

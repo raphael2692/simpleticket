@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/services/ticket.service';
 
@@ -9,14 +10,17 @@ import { TicketService } from 'src/app/services/ticket.service';
 })
 export class TicketComponent implements OnInit {
 
-  @Input()
-  ticketUrl!: string;
-  ticket!: Ticket;
-  constructor(private api: TicketService) { }
+  url!: string;
+  ticket?: Ticket;
+  constructor(private api: TicketService, private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
-    this.api.getTicket(this.ticketUrl)
+    this.route.queryParams.subscribe(params => {
+      this.url = params['url'];
+    this.api.getTicket(this.url)
       .subscribe((data: Ticket) => this.ticket = data);
+    });
   }
+  
 
 }

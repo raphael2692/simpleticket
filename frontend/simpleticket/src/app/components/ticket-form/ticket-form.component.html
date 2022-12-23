@@ -1,1 +1,66 @@
-<p>ticket-form works!</p>
+<div class="container">
+
+    
+<div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" name="title">
+
+    <label for="description">Description</label>
+    <textarea type="text" rows=5 class="form-control" id="description" name="description"></textarea>
+    
+    <label for="creationDate">Creation Date</label>
+    <input type="datetime-local" class="form-control" id="creationDate" name="creationDate">
+
+    <label for="dueDate">Due Date</label>
+    <input type="datetime-local" class="form-control" id="dueDate" name="dueDate">
+    
+    <label for="createdBy">Created by</label>
+    <select class="form-control" id="createdBy" required>
+      <option *ngFor="let user of users" [value]="user">{{ user.url}}</option>
+    </select>
+
+    <label for="requestedBy">Requested by</label>
+    <select class="form-control" id="requestedBy" required>
+      <option *ngFor="let user of users" [value]="user">{{ user.url}}</option>
+    </select>
+
+    <label for="requestedFor">Requested for</label>
+    <select class="form-control" id="requestedFor" required>
+      <option *ngFor="let user of users" [value]="user">{{ user.url}}</option>
+    </select>
+  </div>
+
+
+</div>
+
+
+  <!-- <div class="container">
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title"
+               required
+               [(ngModel)]="ticket.title" name="title"
+               #title="ngModel">
+    
+        <label for="description">Description</label>
+        <textarea type="text" rows="5" class="form-control" id="description"
+                required
+                [(ngModel)]="ticket.description" name="description"
+                #description="ngModel"></textarea>
+           
+        <label for="createdBy">Created by</label>
+        <select class="form-control" id="createdBy" required>
+          <option *ngFor="let user of users" [value]="user">{{ user.url}}</option>
+        </select>
+        <label for="requestedBy">Requested by</label>
+        <select class="form-control" id="requestedBy" required>
+          <option *ngFor="let user of users" [value]="user">{{ user.url}}</option>
+        </select>
+        <label for="requestedFor">Requested for</label>
+        <select class="form-control" id="requestedFor" required>
+          <option *ngFor="let user of users" [value]="user">{{ user.url}}</option>
+        </select>
+      </div>
+
+</div> -->
+

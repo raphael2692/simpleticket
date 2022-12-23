@@ -13,7 +13,7 @@ import { User } from 'src/app/models/user';
 export class TicketFormComponent implements OnInit {
 
   users: User[] | undefined;
-  ticket: Ticket | undefined;
+  ticket!: Ticket;
 
   constructor(private userApi: UserService, private ticketApi: TicketService) { }
 

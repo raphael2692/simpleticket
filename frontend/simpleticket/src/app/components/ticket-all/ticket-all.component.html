@@ -7,7 +7,13 @@
     <li>{{ ticket.title }}</li>
     <li>{{ ticket.description }}</li>
     <li>{{ ticket.creationDate }}</li>
-    <app-ticket [ticketUrl]=ticket.url> </app-ticket>
+    <li>
+
+     <a [routerLink]="['/ticketdetail']" [queryParams]="{ url: ticket.url }" >
+    link to user component
+  </a>
+    </li>
+    <!-- <app-ticket [ticket]=ticket> </app-ticket> -->
 </ul>
 <!-- <app-ticket *ngFor="let ticket of tickets" [ticket] = 'ticket'></app-ticket> -->
 
