@@ -15,17 +15,17 @@
 
     <label for="createdBy">Created by</label>
     <select class="form-control" id="createdBy" name="createdBy" ngModel>
-      <option *ngFor="let user of users" [value]="user.url">{{ user.url}}</option>
+      <option *ngFor="let user of users" [value]="user.url">{{ user.email}}</option>
     </select>
 
     <label for="requestedBy">Requested by</label>
     <select class="form-control" id="requestedBy" name="requestedBy" ngModel>
-      <option *ngFor="let user of users" [value]="user.url">{{ user.url }}</option>
+      <option *ngFor="let user of users" [value]="user.url">{{ user.email }}</option>
     </select>
 
     <label for="requestedFor">Requested for</label>
     <select class="form-control" id="requestedFor" name="requestedFor" ngModel>
-      <option *ngFor="let user of users" [value]="user.url">{{ user.url}}</option>
+      <option *ngFor="let user of users" [value]="user.url">{{ user.email}}</option>
     </select>
 
 
