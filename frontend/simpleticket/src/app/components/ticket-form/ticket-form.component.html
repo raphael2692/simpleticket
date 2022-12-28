@@ -1,36 +1,37 @@
+<form #ticketForm="ngForm" (ngSubmit)="addTicket(ticketForm)">
 
-  <form #ticketForm="ngForm" (ngSubmit)="addTicket(ticketForm)">
-  
-<div class="form-group">
+  <div class="form-group">
     <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" name="title" >
+    <input type="text" class="form-control" id="title" name="title" ngModel>
 
     <label for="description">Description</label>
-    <textarea type="text" rows=5 class="form-control" id="description" name="description" ></textarea>
-    
+    <textarea type="text" rows=5 class="form-control" id="description" name="description" ngModel></textarea>
+
     <label for="creationDate">Creation Date</label>
-    <input type="datetime-local" class="form-control" id="creationDate" name="creationDate" >
+    <input type="datetime-local" class="form-control" id="creationDate" name="creationDate" ngModel>
 
     <label for="dueDate">Due Date</label>
-    <input type="datetime-local" class="form-control" id="dueDate" name="dueDate" >
-    
+    <input type="datetime-local" class="form-control" id="dueDate" name="dueDate" ngModel>
+
     <label for="createdBy">Created by</label>
-    <select class="form-control" id="createdBy">
-      <option *ngFor="let user of users" [value]="user">{{ user.url}}</option>
+    <select class="form-control" id="createdBy" name="createdBy" ngModel>
+      <option *ngFor="let user of users" [value]="user.url">{{ user.url}}</option>
     </select>
 
     <label for="requestedBy">Requested by</label>
-    <select class="form-control" id="requestedBy" >
-      <option *ngFor="let user of users" [value]="user">{{ user.url}}</option>
+    <select class="form-control" id="requestedBy" name="requestedBy" ngModel>
+      <option *ngFor="let user of users" [value]="user.url">{{ user.url }}</option>
     </select>
 
     <label for="requestedFor">Requested for</label>
-    <select class="form-control" id="requestedFor">
-      <option *ngFor="let user of users" [value]="user">{{ user.url}}</option>
+    <select class="form-control" id="requestedFor" name="requestedFor" ngModel>
+      <option *ngFor="let user of users" [value]="user.url">{{ user.url}}</option>
     </select>
 
+
+    <input type="checkbox" id="completed" name="completed" [ngModel]="false" ngModel>
+    <label for="completed" class="form-check-label">Ticket is completed</label>
+    <br>
     <button class="btn btn-primary" [disabled]="!ticketForm.valid" type="submit">Aggiungi nuovo ticket</button>
   </div>
 </form>
-
-

@@ -28,6 +28,7 @@ export class TicketFormComponent implements OnInit {
   }
 
   addTicket(form: NgForm) {
+    console.log(form.value)
     this.ticketApi.addTicket(form.value).subscribe(
       data => {
         console.log(data);
