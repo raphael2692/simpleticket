@@ -1,20 +1,15 @@
-<p>ticket-all works!</p>
-
-
-<!-- <p> {{ tickets  }}</p> -->
-<ul *ngFor="let ticket of tickets">
-    <li>{{ ticket.url }}</li>
-    <li>{{ ticket.title }}</li>
-    <li>{{ ticket.description }}</li>
-    <li>{{ ticket.creationDate }}</li>
+<div class="container">
+  <h2>Tickets</h2>
+  <br>
+  <ul *ngFor="let ticket of tickets">
+    <li>Url: {{ ticket.url }}</li>
+    <li>Title: {{ ticket.title }}</li>
+    <li>Description: {{ ticket.description }}</li>
+    <li>Creation date: {{ ticket.creationDate }}</li>
     <li>
 
-     <a [routerLink]="['/ticketdetail']" [queryParams]="{ url: ticket.url }" >
-    link to user component
-  </a>
+      <a [routerLink]="['/ticketdetail']" [queryParams]="{ url: ticket.url }">Ticket details (/ticketdetail)</a>
     </li>
-    <!-- <app-ticket [ticket]=ticket> </app-ticket> -->
-</ul>
-<!-- <app-ticket *ngFor="let ticket of tickets" [ticket] = 'ticket'></app-ticket> -->
 
-
+  </ul>
+</div>
