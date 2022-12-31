@@ -1,3 +1,5 @@
+<!-- 
+TODO have a look at this: https://github.com/ng-select/ng-select but I don't like how the styling is handled-->
 
 <div class="container">
   <form #ticketForm="ngForm" (ngSubmit)="addTicket(ticketForm)">
@@ -5,31 +7,49 @@
     <div class="form-group">
       <label for="title">Title</label>
       <input type="text" class="form-control" id="title" name="title" ngModel>
-  
+
       <label for="description">Description</label>
       <textarea type="text" rows=5 class="form-control" id="description" name="description" ngModel></textarea>
-  
+
       <label for="creationDate">Creation Date</label>
       <input type="datetime-local" class="form-control" id="creationDate" name="creationDate" ngModel>
-  
+
       <label for="dueDate">Due Date</label>
       <input type="datetime-local" class="form-control" id="dueDate" name="dueDate" ngModel>
-  
-      <label for="createdBy">Created by</label>
+
+      <!-- <label for="createdBy">Created by</label>
       <select class="form-control" id="createdBy" name="createdBy" ngModel>
         <option *ngFor="let user of users" [value]="user.url">{{ user.email}}</option>
-      </select>
-  
-      <label for="requestedBy">Requested by</label>
+      </select> -->
+
+      <label for="createdBy">Created by (typehead)</label>
+      <input id="createdBy" name="createdBy" type="text" class="form-control" ngModel [ngbTypeahead]="searchUser"
+        [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter" />
+
+      <!-- <label for="requestedBy">Requested by</label>
       <select class="form-control" id="requestedBy" name="requestedBy" ngModel>
         <option *ngFor="let user of users" [value]="user.url">{{ user.email }}</option>
-      </select>
-  
-      <label for="requestedFor">Requested for</label>
+      </select> -->
+
+      <label for="requestedBy">requestedBy (typehead)</label>
+      <input id="requestedBy" name="requestedBy" type="text" class="form-control" ngModel [ngbTypeahead]="searchUser"
+        [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter" />
+
+      <!-- <label for="requestedFor">Requested for</label>
       <select class="form-control" id="requestedFor" name="requestedFor" ngModel>
         <option *ngFor="let user of users" [value]="user.url">{{ user.email}}</option>
-      </select>
-  
+      </select> -->
+
+      <label for="requestedFor">requestedFor (typehead)</label>
+      <input id="requestedFor" name="requestedFor" type="text" class="form-control" ngModel [ngbTypeahead]="searchUser"
+        [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter" />
+
+      <!-- <label for="typeahead-basic">Requested for (typehead)</label>
+      <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="users" [ngbTypeahead]="searchUser"
+        [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter" /> -->
+      <!-- <hr />
+      <pre>Model: {{ users | json }}</pre>
+   -->
       <br>
 
       <input type="checkbox" id="completed" name="completed" [ngModel]="false" ngModel>
