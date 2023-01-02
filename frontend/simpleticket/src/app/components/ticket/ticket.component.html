@@ -1,13 +1,15 @@
-<div>
+<div class="container">
     <ul>
-        <li>Resource url:</li>
-        <li> {{ url }}</li>
+        <li>url: {{ ticket.url }}</li>
+        <li>id: {{ ticket.id }}</li>
+        <li>title: {{ ticket.title }}</li>
+        <li>description: {{ ticket.description }}</li>
+        <li>creationDate: {{ ticket.creationDate }}</li>
+        <li>dueDate: {{ ticket.dueDate }}</li>
+        <li>createdBy: {{ ticket.createdBy }}</li>
+        <li>requestedBy: {{ ticket.requestedBy }}</li>
+        <li>requestedFor: {{ ticket.requestedFor }}</li>
     </ul>
-</div>
-
-<div>
-    <p>Data:</p>
-    <p>{{ ticket | json }}</p>
 </div>
 
 <!-- <div> {{ ticket | json }}</div> -->

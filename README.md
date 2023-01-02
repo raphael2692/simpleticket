@@ -16,7 +16,7 @@ npm install
 - add authentication service angular
 - add login pages angualr
 - add pagination for tickets (django + angular)
-- add pagination/alternative method for user reference in ticket (angular)
+- add pagination/alternative method for user reference in ticket (angular)  <--- partially achieved with angular bootstrap
 - restyle
 
 ## bugs

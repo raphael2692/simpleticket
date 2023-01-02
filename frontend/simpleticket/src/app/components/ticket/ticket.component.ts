@@ -11,7 +11,7 @@ import { TicketService } from 'src/app/services/ticket.service';
 export class TicketComponent implements OnInit {
 
   url!: string;
-  ticket?: Ticket;
+  ticket!: Ticket;
   constructor(private api: TicketService, private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
