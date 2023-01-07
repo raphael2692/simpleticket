@@ -5,13 +5,10 @@ import { Ticket } from 'src/app/models/ticket';
 import { User } from 'src/app/models/user';
 import { NgForm } from '@angular/forms';
 
-import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { Observable, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
-// TODO remove
-import { FormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-ticket-create',
@@ -22,21 +19,26 @@ import { JsonPipe } from '@angular/common';
 export class TicketFormComponent implements OnInit {
 
   users!: User[];
-  ticket!: Ticket;
+  ticketModel: Ticket= {
+    url:  "",
+    title: "",
+    description : "",
+    completed : false
+  }; // TODO: cambiare con dati utente corrente, gestire il default delle date senza rompere il 'model'
 
   constructor(private userApi: UserService, private ticketApi: TicketService) { }
 
   ngOnInit(): void {
-    this.showUsers()
+    this.getRelatedUsers()
   }
 
-  showUsers() {
+  getRelatedUsers() {
     this.userApi.getUsers()
       .subscribe((data: User[]) => this.users = data);
   }
 
   addTicket(form: NgForm) {
-    console.log(form.value); // data collected from form
+    // console.log(form.value); // data collected from form
     // TODO better handle this in form...
     form.value["createdBy"] = form.value["createdBy"]["url"];
     form.value["requestedBy"] = form.value["requestedBy"]["url"];
@@ -53,16 +55,18 @@ export class TicketFormComponent implements OnInit {
     form.reset()
   }
 
-  // typehead stuff
+  // below, typehead stuff
   // TODO this would not be good if related users are a lot, should implement sothing else ...?
   searchUser: OperatorFunction<string, readonly User[]> = (text$: Observable<string>) =>
   
   text$.pipe(
     debounceTime(200),
     distinctUntilChanged(),
-
+    // take the firt 10 result that match 'term' after 1 digit
     map((term) =>
-      term.length < 1 ? [] : this.users.filter((user) => user.username.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10),
+      term.length < 1 ? [] : this.users.filter(
+        (user) => user.username.toLowerCase().indexOf(term.toLowerCase()) > -1)
+        .slice(0, 10),
     ),
   );
   userResultFormatter = (user: { email: string }) => user.email;

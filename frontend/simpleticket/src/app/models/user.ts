@@ -1,8 +1,8 @@
-export class User {
+export interface User {
 
-    url: string = "";
-    id: number = 0;
-    username: string = "";
-    email: string = "";
-    groups: [] = []
+    url: string;
+    id: number;
+    username: string;
+    email: string;
+    groups: [];
 }

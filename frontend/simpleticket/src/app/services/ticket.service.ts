@@ -21,8 +21,8 @@ export class TicketService {
 
   }
 
-  getTicket(ticketUrl: string) {
-    return this.http.get<Ticket>(ticketUrl)
+  getTicket(ticketId: number) {
+    return this.http.get<Ticket>(`${this.baseUrl}/tickets/${ticketId}/`)
   }
   
   addTicket(ticket:Ticket) {

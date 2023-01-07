@@ -4,52 +4,81 @@ TODO have a look at this: https://github.com/ng-select/ng-select but I don't lik
 <div class="container">
   <form #ticketForm="ngForm" (ngSubmit)="addTicket(ticketForm)">
 
+
+    <p> model binding debug: {{ticketModel | json}}</p>
+
+
+
     <div class="form-group">
-      <label for="title">Title</label>
-      <input type="text" class="form-control" id="title" name="title" ngModel>
+      <div id="ticketInput">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" name="title" [(ngModel)]="ticketModel.title" required
+          #title="ngModel">
+        <div [hidden]="title.valid || title.pristine" class="alert alert-danger"> Title is required</div>
+      </div>
 
-      <label for="description">Description</label>
-      <textarea type="text" rows=5 class="form-control" id="description" name="description" ngModel></textarea>
 
-      <label for="creationDate">Creation Date</label>
-      <input type="datetime-local" class="form-control" id="creationDate" name="creationDate" ngModel>
+      <div class="ticketDescription">
+        <label for="description">Description</label>
+        <textarea type="text" rows=5 class="form-control" id="description" name="description"
+          [(ngModel)]="ticketModel.description" required #description="ngModel"></textarea>
+        <div [hidden]="description.valid || description.pristine" class="alert alert-danger"> Description is required
+        </div>
+      </div>
 
-      <label for="dueDate">Due Date</label>
-      <input type="datetime-local" class="form-control" id="dueDate" name="dueDate" ngModel>
+      <div class="ticketCreationDate">
+        <label for="creationDate">Creation Date</label>
+        <input type="datetime-local" class="form-control" id="creationDate" name="creationDate"
+          [(ngModel)]="ticketModel.creationDate" #creationDate="ngModel" required>
+      </div>
 
-      <!-- <label for="createdBy">Created by</label>
-      <select class="form-control" id="createdBy" name="createdBy" ngModel>
-        <option *ngFor="let user of users" [value]="user.url">{{ user.email}}</option>
-      </select> -->
+      <div class="ticketDueDate">
+        <label for="dueDate">Due Date</label>
+        <input type="datetime-local" class="form-control" id="dueDate" name="dueDate" [(ngModel)]="ticketModel.dueDate"
+          #dueDate="ngModel" required>
+      </div>
 
-      <label for="createdBy">Created by (typehead)</label>
-      <input id="createdBy" name="createdBy" type="text" class="form-control" ngModel [ngbTypeahead]="searchUser"
-        [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter" />
+      <div id="ticketCreatedBy">
+        <label for="createdBy">Created by (typehead)</label>
+        <input id="createdBy" name="createdBy" type="text" class="form-control" [ngbTypeahead]="searchUser"
+          [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter"
+          [(ngModel)]="ticketModel.createdBy" #createdBy="ngModel" required />
+          <div [hidden]="createdBy.valid || createdBy.pristine" class="alert alert-danger"> Created By is required
+          </div>
+        <!-- <label for="createdBy">Created by</label>
+          <select class="form-control" id="createdBy" name="createdBy" ngModel>
+            <option *ngFor="let user of users" [value]="user.url">{{ user.email}}</option>
+          </select> -->
+      </div>
 
-      <!-- <label for="requestedBy">Requested by</label>
+      <div id="ticketRequestedBy">
+        <label for="requestedBy">requestedBy (typehead)</label>
+        <input id="requestedBy" name="requestedBy" type="text" class="form-control" [ngbTypeahead]="searchUser"
+          [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter"
+          [(ngModel)]="ticketModel.requestedBy" #requestedBy="ngModel" required />
+        <div [hidden]="requestedBy.valid || requestedBy.pristine" class="alert alert-danger"> Requested By is required
+        </div>
+        <!-- <label for="requestedBy">Requested by</label>
       <select class="form-control" id="requestedBy" name="requestedBy" ngModel>
         <option *ngFor="let user of users" [value]="user.url">{{ user.email }}</option>
       </select> -->
+      </div>
 
-      <label for="requestedBy">requestedBy (typehead)</label>
-      <input id="requestedBy" name="requestedBy" type="text" class="form-control" ngModel [ngbTypeahead]="searchUser"
-        [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter" />
 
-      <!-- <label for="requestedFor">Requested for</label>
+      <div id="requestedFor">
+        <label for="requestedFor">requestedFor (typehead)</label>
+        <input id="requestedFor" name="requestedFor" type="text" class="form-control" [ngbTypeahead]="searchUser"
+          [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter"
+          [(ngModel)]="ticketModel.requestedFor" #requestedFor="ngModel" required />
+        <div [hidden]="requestedFor.valid || requestedFor.pristine" class="alert alert-danger"> Requested For or is required
+        </div>
+        <!-- <label for="requestedFor">Requested for</label>
       <select class="form-control" id="requestedFor" name="requestedFor" ngModel>
         <option *ngFor="let user of users" [value]="user.url">{{ user.email}}</option>
       </select> -->
+      </div>
 
-      <label for="requestedFor">requestedFor (typehead)</label>
-      <input id="requestedFor" name="requestedFor" type="text" class="form-control" ngModel [ngbTypeahead]="searchUser"
-        [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter" />
 
-      <!-- <label for="typeahead-basic">Requested for (typehead)</label>
-      <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="users" [ngbTypeahead]="searchUser"
-        [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter" /> -->
-      <!-- <hr />
-      <pre>Model: {{ users | json }}</pre>
-   -->
       <br>
 
       <input type="checkbox" id="completed" name="completed" [ngModel]="false" ngModel>

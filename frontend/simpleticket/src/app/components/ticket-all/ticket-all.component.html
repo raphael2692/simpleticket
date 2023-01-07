@@ -8,7 +8,7 @@
     <li>Creation date: {{ ticket.creationDate }}</li>
     <li>
 
-      <a [routerLink]="['/ticketdetail']" [queryParams]="{ url: ticket.url }">Ticket details (/ticketdetail)</a>
+      <a [routerLink]="['/ticketdetail']" [queryParams]="{ id: ticket.id }">Ticket details (/ticketdetail)</a>
     </li>
 
   </ul>

@@ -10,14 +10,14 @@ import { TicketService } from 'src/app/services/ticket.service';
 })
 export class TicketComponent implements OnInit {
 
-  url!: string;
+  id!: number;
   ticket!: Ticket;
   constructor(private api: TicketService, private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
-      this.url = params['url'];
-    this.api.getTicket(this.url)
+      this.id = params['id'];
+    this.api.getTicket(this.id)
       .subscribe((data: Ticket) => this.ticket = data);
     });
   }
