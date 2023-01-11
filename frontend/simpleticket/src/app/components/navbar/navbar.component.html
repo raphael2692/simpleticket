@@ -1,7 +1,35 @@
-<div class="container py-5">
+<!-- <div class="container py-5">
     <ul>
         <li><a routerLink="">Home (/)</a></li>
         <li><a routerLink="ticketall">Tickets (/ticketall)</a></li>
         <li><a routerLink="ticketcreate">Create new ticket (/ticketcreate)</a></li>
     </ul>
-</div>
+</div> -->
+<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="container-fluid d-flex justify-content-between">
+                  <a class="navbar-brand" href="#">Navbar</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                      <li class="nav-item">
+                        <a class="nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">Home</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" routerLink="/ticketall" routerLinkActive="active-link">Tickets</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" routerLink="/ticketcreate" routerLinkActive="active-link">Create new ticket</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+

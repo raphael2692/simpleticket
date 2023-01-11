@@ -1,15 +1,32 @@
 <div class="container">
-  <h2>Tickets</h2>
-  <br>
-  <ul *ngFor="let ticket of tickets">
-    <li>Url: {{ ticket.url }}</li>
-    <li>Title: {{ ticket.title }}</li>
-    <li>Description: {{ ticket.description }}</li>
-    <li>Creation date: {{ ticket.creationDate }}</li>
-    <li>
-
-      <a [routerLink]="['/ticketdetail']" [queryParams]="{ id: ticket.id }">Ticket details (/ticketdetail)</a>
-    </li>
-
-  </ul>
+  <h2 class="display-2 py-3">Tickets</h2>
+  <table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Url</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Creation date</th>
+        <th scope="col">Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of tickets">
+        <td>{{ ticket.url }}</td>
+        <td>{{ ticket.title }}</td>
+        <td>{{ ticket.description }}</td>
+        <td>{{ ticket.creationDate }}</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-light"
+          [routerLink]="['/ticketdetail']" [queryParams]="{ id: ticket.id }">
+            Ticket details
+          </button>
+          <button type="button" class="btn btn-sm btn-danger"
+          [routerLink]="['/ticketcreate']" [queryParams]="{ edit: true, id:ticket.id }">
+            Ticket details
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
