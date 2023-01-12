@@ -22,3 +22,6 @@ npm install
 ## bugs
 - time zone is different between angular and django
 
+## do
+- button delete (10/01/2022)
+- restyle (11/01/2022)

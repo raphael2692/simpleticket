@@ -15,7 +15,7 @@ export class UserService {
     return this.http.get<User[]>('http://localhost:8000/users/')
   }
 
-  getUser(userUrl: string) {
+  getUser(userUrl: any) {
     return this.http.get<User>(userUrl)
   }
 }

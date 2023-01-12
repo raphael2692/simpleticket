@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TicketService } from 'src/app/services/ticket.service';
-import { Ticket } from 'src/app/models/ticket';
+import { Router } from '@angular/router';
+import { Ticket } from './../../models/ticket';
 
 @Component({
   selector: 'app-ticket-all',
@@ -11,10 +12,15 @@ import { Ticket } from 'src/app/models/ticket';
 export class TicketAllComponent implements OnInit {
   tickets: Ticket[] | undefined;
 
-  constructor(private api: TicketService) { }
+  constructor(private api: TicketService, private router: Router) { }
 
   ngOnInit(): void {
     this.showTickets()
+    this.api.onAddedTicket.subscribe(
+      data => {
+        this.showTickets()
+      }
+    )
   }
 
   showTickets() {

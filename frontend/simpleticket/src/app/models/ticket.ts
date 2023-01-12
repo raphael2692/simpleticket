@@ -8,9 +8,9 @@ export interface Ticket {
     description : string;
     creationDate ?: Date;
     dueDate ?: Date;
-    createdBy ?: User;
-    requestedBy ?: User;
-    requestedFor ?: User;
+    createdBy ?: User | string;
+    requestedBy ?: User | string;
+    requestedFor ?: User | string;
     completed : boolean;
 
 }

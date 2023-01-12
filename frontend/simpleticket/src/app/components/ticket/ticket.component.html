@@ -1,16 +1,26 @@
 <div class="container">
-    <ul>
-        <li>url: {{ ticket.url }}</li>
-        <li>id: {{ ticket.id }}</li>
-        <li>title: {{ ticket.title }}</li>
-        <li>description: {{ ticket.description }}</li>
-        <li>creationDate: {{ ticket.creationDate }}</li>
-        <li>dueDate: {{ ticket.dueDate }}</li>
-        <li>createdBy: {{ ticket.createdBy }}</li>
-        <li>requestedBy: {{ ticket.requestedBy }}</li>
-        <li>requestedFor: {{ ticket.requestedFor }}</li>
-    </ul>
+    <h2 class="display-2 py-3">Ticket detail</h2>
+    <div class="col-6">
+        <ul class="list-group list-group">
+            <li class="list-group-item">Url: <b>{{ ticket.url }}</b></li>
+            <li class="list-group-item">Id: <b>{{ ticket.id }}</b></li>
+            <li class="list-group-item">Title: <b>{{ ticket.title }}</b></li>
+            <li class="list-group-item">Description: <b>{{ ticket.description }}</b></li>
+            <li class="list-group-item">Creation Date: <b>{{ ticket.creationDate }}</b></li>
+            <li class="list-group-item">Due Date: <b>{{ ticket.dueDate }}</b></li>
+            <li class="list-group-item">Created By: <b>{{ ticket.createdBy }}</b></li>
+            <li class="list-group-item">Requested By: <b>{{ ticket.requestedBy }}</b></li>
+            <li class="list-group-item">Requested For: <b>{{ ticket.requestedFor }}</b></li>
+            <li class="list-group-item" *ngIf="ticket.id">
+                <button type="button" class="btn btn-danger" (click)="deleteTicket(ticket.id)">Detele ticket</button>
+            </li>
+            <!-- <li>
+                <button [routerLink] ="['/tickets',ticket.id, 'edit']">Modifica</button>
+            </li> -->
+        </ul>
+    </div>
 </div>
+
 
 <!-- <div> {{ ticket | json }}</div> -->
 <!-- <div> {{ ticket.url }}</div> -->

@@ -8,8 +8,10 @@ const routes: Routes = [
   { path :  '', component : HomeComponent}, 
   { path : 'ticketall', component : TicketAllComponent},
   { path: 'ticketcreate', component: TicketFormComponent},
-  { path: 'ticketdetail', component: TicketComponent}
-];
+  { path: 'ticketcreate/:ticket:edit', component: TicketFormComponent},
+  { path: 'ticketdetail', component: TicketComponent},
+  // { path: 'tickets/ticket/edit', component : TicketFormComponent},
+];  
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
