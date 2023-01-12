@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'simpleticket.simpleticketapp',
-    'corsheaders'
+    'corsheaders',
+    'rest_framework_simplejwt',
     
 ]
 
@@ -132,3 +133,13 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     'http://localhost:4200',
 ]
+
+# SIMPLE JWT
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+
+}
