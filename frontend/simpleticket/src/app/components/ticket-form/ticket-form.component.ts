@@ -46,7 +46,7 @@ export class TicketFormComponent implements OnInit {
       .subscribe(
         params => {
           console.log(params)
-          if (params["edit"] === 'true' && this.users) { // TODO perchè true viene passato come stringa?!
+          if (params["edit"] === 'true') { // TODO perchè true viene passato come stringa?!
             this.editMode = true
             this.loading = true
             this.id = params["id"]
