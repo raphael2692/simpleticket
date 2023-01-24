@@ -1,5 +1,8 @@
-<div class="container">
-  <h2 class="display-2 py-3">Tickets</h2>
+
+<div class="container d-flex">
+  <div class="col-2"></div>
+  <div class="col-10">
+    <h2 class="display-2 py-3">Tickets</h2>
   <table class="table table-dark">
     <thead>
       <tr>
@@ -8,25 +11,37 @@
         <th scope="col">Description</th>
         <th scope="col">Creation date</th>
         <th scope="col">Details</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let ticket of tickets">
-        <td>{{ ticket.url }}</td>
-        <td>{{ ticket.title }}</td>
-        <td>{{ ticket.description }}</td>
-        <td>{{ ticket.creationDate }}</td>
-        <td>
-          <button type="button" class="btn btn-sm btn-light"
-          [routerLink]="['/ticketdetail']" [queryParams]="{ id: ticket.id }">
-            Ticket details
-          </button>
-          <button type="button" class="btn btn-sm btn-danger"
-          [routerLink]="['/ticketcreate']" [queryParams]="{ edit: true, id:ticket.id }">
-            Ticket details
-          </button>
-        </td>
+    <tbody *ngFor="let ticket of tickets">
+      <tr>
+          <td>{{ ticket.url }}</td>
+          <td>{{ ticket.title }}</td>
+          <td>{{ ticket.description }}</td>
+          <td>{{ ticket.creationDate | date: 'dd/MM/yyyy - HH:mm' }}</td>
+          <td>
+            <button type="button" class="btn btn-sm btn-info"
+            [routerLink]="['/ticketdetail']" [queryParams]="{ id: ticket.id }">
+              Ticket details
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-sm btn-light"
+            [routerLink]="['/ticketcreate']" [queryParams]="{ edit: true, id:ticket.id}">
+              Edit ticket
+            </button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-sm btn-danger" (click)="deleteTicket(ticket.id!)">Detele ticket</button>
+          </td>
       </tr>
     </tbody>
   </table>
+  <div class="alert alert-warning" role="alert" *ngIf="tickets.length == 0">
+    <h5>Nessun ticket registrato</h5>
+  </div>
+  </div>
+  
 </div>
