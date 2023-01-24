@@ -12,5 +12,4 @@ export interface Ticket {
     requestedBy ?: User | string;
     requestedFor ?: User | string;
     completed : boolean;
-
 }

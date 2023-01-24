@@ -1,26 +1,32 @@
-<div class="container">
-    <h2 class="display-2 py-3">Ticket detail</h2>
+<div class="container d-flex">
+    <div class="col-2"></div>
+    <div class="col-10">
+        <h2 class="display-2 py-3">Ticket detail</h2>
     <div class="col-6">
-        <ul class="list-group list-group">
-            <li class="list-group-item">Url: <b>{{ ticket.url }}</b></li>
-            <li class="list-group-item">Id: <b>{{ ticket.id }}</b></li>
-            <li class="list-group-item">Title: <b>{{ ticket.title }}</b></li>
-            <li class="list-group-item">Description: <b>{{ ticket.description }}</b></li>
-            <li class="list-group-item">Creation Date: <b>{{ ticket.creationDate }}</b></li>
-            <li class="list-group-item">Due Date: <b>{{ ticket.dueDate }}</b></li>
-            <li class="list-group-item">Created By: <b>{{ ticket.createdBy }}</b></li>
-            <li class="list-group-item">Requested By: <b>{{ ticket.requestedBy }}</b></li>
-            <li class="list-group-item">Requested For: <b>{{ ticket.requestedFor }}</b></li>
+       
+        <ul class="list-group list-group" *ngIf="loading">
+            <li class="list-group-item">Url: <b>{{ ticket?.url }}</b></li>
+            <li class="list-group-item">Id: <b>{{ ticket?.id }}</b></li>
+            <li class="list-group-item">Title: <b>{{ ticket?.title }}</b></li>
+            <li class="list-group-item">Description: <b>{{ ticket?.description }}</b></li>
+            <li class="list-group-item">Creation Date: <b>{{ ticket?.creationDate | date: 'dd/MM/yyyy - HH:mm' }}</b></li>
+            <li class="list-group-item">Due Date: <b>{{ ticket?.dueDate | date: 'dd/MM/yyyy - HH:mm' }}</b></li>
+            <li class="list-group-item">Created By: <b>{{ userCreator?.email }}</b></li>
+            <li class="list-group-item">Requested By: <b>{{ userRequested?.email }}</b></li>
+            <li class="list-group-item">Requested For: <b>{{ userRequestedFor?.email }}</b></li>
+            
             <li class="list-group-item" *ngIf="ticket.id">
                 <button type="button" class="btn btn-danger" (click)="deleteTicket(ticket.id)">Detele ticket</button>
+                <button type="button" class="btn btn-primary mx-2"
+                [routerLink]="['/ticketcreate']" [queryParams]="{ edit: true, id:ticket.id}">
+                    Edit ticket
+                </button>
+                <button type="button" class="btn btn-dark" routerLink="/ticketall">Go back</button>
             </li>
-            <!-- <li>
-                <button [routerLink] ="['/tickets',ticket.id, 'edit']">Modifica</button>
-            </li> -->
         </ul>
+    </div>
     </div>
 </div>
 
-
 <!-- <div> {{ ticket | json }}</div> -->
-<!-- <div> {{ ticket.url }}</div> -->
+

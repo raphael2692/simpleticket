@@ -10,7 +10,7 @@ import { Observable, Subject } from 'rxjs';
 export class TicketService {
 
   baseUrl: string = "http://localhost:8000" // todo mettere in config
-  onAddedTicket = new Subject<any>();
+  onAddedTicket = new Subject<Ticket>();
 
   constructor(private http: HttpClient) { }
 
@@ -31,5 +31,7 @@ export class TicketService {
   }
 
   // TODO putTicket method
-
+  updateTicket(ticketId: number, ticket: Ticket ){
+    return this.http.put<Ticket>(`${this.baseUrl}/tickets/${ticketId}/`, ticket)
+  }
 }
