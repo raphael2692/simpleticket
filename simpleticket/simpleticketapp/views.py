@@ -25,7 +25,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
-    # permission_classes = []
+    # permission_classes = []￼
 
 class GroupViewSet(viewsets.ModelViewSet):
     """
@@ -42,8 +42,8 @@ class TicketViewSet(viewsets.ModelViewSet):
     """
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
-    # permission_classes = [permissions.IsAuthenticated]
-    permission_classes = []
+    permission_classes = [permissions.IsAuthenticated]
+    #permission_classes = []
 
 
 
