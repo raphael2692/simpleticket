@@ -27,6 +27,16 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+
+    // Opzioni aggiunte per eliminare sottolineature di Warning superflue
+    "strictNullChecks": false,
+    "extendedDiagnostics": {
+      "checks": {
+        "optionalChainNotNullable": "suppress"
+      }
+    }
   }
+  
+  
 }

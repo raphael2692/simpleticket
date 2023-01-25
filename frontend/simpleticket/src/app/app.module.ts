@@ -10,7 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbdModalContent, TicketFormComponent } from './components/ticket-form/ticket-form.component';
+import { TicketFormComponent } from './components/ticket-form/ticket-form.component';
 
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './auth/login/login.component';

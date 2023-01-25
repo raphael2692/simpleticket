@@ -1,14 +1,21 @@
 <!-- 
 TODO have a look at this: https://github.com/ng-select/ng-select but I don't like how the styling is handled-->
-
-<div class="container">
+<div class="container d-flex">
   <!-- TODO: IF per callback quando si fa submit dell'edit -->
-  <form #ticketForm="ngForm" (ngSubmit)="addTicket(ticketForm)">
-    <p>model binding debug: {{ ticketModel | json }}</p>
+  <div class="col-2"></div>
+  <form class="col-10" #ticketForm="ngForm" (ngSubmit)="editMode === true ? updateTicket(ticketForm) : addTicket(ticketForm)">
+    
+    <!-- <p>editMode {{ editMode | json }}</p>
+    <p>model binding debug: {{ ticketModel | json }}</p> -->
 
-    <h2 class="display-2 py-3">Ticket form</h2>
+    <h2 class="display-2 py-3">{{editMode ? 'Edit ticket' : 'New ticket'}}</h2>
 
-    <div class="form-group">
+      <div class="spinner-border text-primary me-3" role="status" *ngIf="loading && users != undefined" >
+        <span class="sr-only"></span>
+      </div>
+    
+
+    <div class="form-group" *ngIf="!loading">
       <div class="ticketInput col-6">
         <label class="pt-3" for="title"><h6>Title</h6></label>
         <input
@@ -50,6 +57,7 @@ TODO have a look at this: https://github.com/ng-select/ng-select but I don't lik
 
       <div class="ticketCreatedBy col-6">
         <label class="pt-3" for="createdBy"
+        [hidden]="editMode === true"
           ><h6>Created by (typehead)</h6></label
         >
         <input
@@ -57,6 +65,7 @@ TODO have a look at this: https://github.com/ng-select/ng-select but I don't lik
           name="createdBy"
           type="text"
           class="form-control"
+          [hidden]="editMode === true"
           [ngbTypeahead]="searchUser"
           [resultFormatter]="userResultFormatter"
           [inputFormatter]="userInputFormatter"
@@ -124,7 +133,7 @@ TODO have a look at this: https://github.com/ng-select/ng-select but I don't lik
           [hidden]="requestedFor.valid || requestedFor.pristine"
           class="alert alert-danger"
         >
-          Requested For or is required
+          Requested For is required
         </div>
         <!-- <label for="requestedFor">Requested for</label>
           <select class="form-control" id="requestedFor" name="requestedFor" ngModel>
@@ -133,12 +142,13 @@ TODO have a look at this: https://github.com/ng-select/ng-select but I don't lik
       </div>
 
       <div class="ticketCreationDate col-6">
-        <label class="pt-3" for="creationDate"><h6>Creation Date</h6></label>
+        <label class="pt-3" [hidden]="editMode === true" for="creationDate"><h6>Creation Date</h6></label>
         <input
           type="datetime-local"
           class="form-control"
           id="creationDate"
           name="creationDate"
+          [hidden]="editMode === true"
           [(ngModel)]="ticketModel.creationDate"
           #creationDate="ngModel"
           required
@@ -173,13 +183,21 @@ TODO have a look at this: https://github.com/ng-select/ng-select but I don't lik
     <br />
     <br />
     <!-- TODO ng if per cambiare il pulsante in edit mode -->
-    <button
-      class="btn btn-primary"
-      [disabled]="!ticketForm.valid"
-      type="submit"
-      (click)="open()"
-    >
-      Aggiungi nuovo ticket
-    </button>
+    <div>
+      <button
+        class="btn btn-primary"
+        [disabled]="!ticketForm.valid"
+        type="submit"
+        (click)="openModal()">
+        {{ editMode === true ? 'Edit ticket' : 'Add new ticket' }}
+      </button>
+     
+      <button
+        class="btn btn-dark mx-2"
+        routerLink="/ticketall"
+        type="button">
+        Go back
+      </button>
+    </div>
   </form>
 </div>

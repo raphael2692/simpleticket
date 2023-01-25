@@ -5,7 +5,8 @@
         <li><a routerLink="ticketcreate">Create new ticket (/ticketcreate)</a></li>
     </ul>
 </div> -->
-<nav class="navbar navbar-dark navbar-expand-lg bg-dark">
+
+<!-- <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -31,5 +32,45 @@
             </div>
         </div>
     </div>
-</nav>
+</nav> -->
 
+<div class="area"></div><nav class="main-menu">
+ 
+  <ul>
+      <li>
+          <a class="nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">
+              <i class="fa fa-home fa-2x"></i>
+              <span class="nav-text">
+                 Home
+              </span>
+          </a>
+      </li>
+      <li class="has-subnav">
+          <a class="nav-link" routerLink="/ticketall" routerLinkActive="active-link">
+              <i class="fa fa-ticket fa-2x"></i>
+              <span class="nav-text text-capitalize">
+                  tickets
+              </span>
+          </a>
+      </li>
+      <li class="has-subnav create">
+          <a class="nav-link" routerLink="/ticketcreate" routerLinkActive="active-link">
+             <i class="fa fa-plus fa-2x"></i>
+              <span class="nav-text">
+                  Create
+              </span>
+          </a>
+      </li>
+      
+  </ul> 
+  <!-- <ul class="logout">
+      <li>
+         <a href="#">
+               <i class="fa fa-power-off fa-2x"></i>
+              <span class="nav-text">
+                  Logout
+              </span>
+          </a>
+      </li>  
+  </ul> -->
+</nav>
