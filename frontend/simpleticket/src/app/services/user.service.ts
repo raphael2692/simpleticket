@@ -22,9 +22,9 @@ export class UserService {
     return this.http.get<User>(userUrl)
   }
 
-  getSUperUser(userUrl: any){
-   return this.http.get<Ticket>(userUrl)
-  }
+  // getSUperUser(userUrl: any){
+  //  return this.http.get<Ticket>(userUrl)
+  // }
 
 }
 

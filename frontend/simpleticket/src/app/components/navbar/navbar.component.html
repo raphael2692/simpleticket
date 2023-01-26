@@ -1,76 +1,42 @@
-<!-- <div class="container py-5">
-    <ul>
-        <li><a routerLink="">Home (/)</a></li>
-        <li><a routerLink="ticketall">Tickets (/ticketall)</a></li>
-        <li><a routerLink="ticketcreate">Create new ticket (/ticketcreate)</a></li>
-    </ul>
-</div> -->
+<div class="container-fluid">
 
-<!-- <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="container-fluid d-flex justify-content-between">
-                  <a class="navbar-brand" href="#">Navbar</a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                      <li class="nav-item">
-                        <a class="nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">Home</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" routerLink="/ticketall" routerLinkActive="active-link">Tickets</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" routerLink="/ticketcreate" routerLinkActive="active-link">Create new ticket</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item ">
+                    <a class="nav-link" routerLink="/login" routerLinkActive="active-link"
+                        [routerLinkActiveOptions]="{exact:true}">
+                        <i class="fa fa-home fa-2x"></i>
+                        <span class="nav-text">
+                            Login
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" routerLink="/ticketall" routerLinkActive="active-link"
+                        [routerLinkActiveOptions]="{exact:true}">
+                        <i class="fa fa-home fa-2x"></i>
+                        <span class="nav-text">
+                            All tickets
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" routerLink="/ticketcreate" routerLinkActive="active-link"
+                        [routerLinkActiveOptions]="{exact:true}">
+                        <i class="fa fa-home fa-2x"></i>
+                        <span class="nav-text">
+                            Create new Ticket
+                        </span>
+                    </a>
+                </li>
+
+            </ul>
         </div>
-    </div>
-</nav> -->
-
-<div class="area"></div><nav class="main-menu">
- 
-  <ul>
-      <li>
-          <a class="nav-link" routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">
-              <i class="fa fa-home fa-2x"></i>
-              <span class="nav-text">
-                 Home
-              </span>
-          </a>
-      </li>
-      <li class="has-subnav">
-          <a class="nav-link" routerLink="/ticketall" routerLinkActive="active-link">
-              <i class="fa fa-ticket fa-2x"></i>
-              <span class="nav-text text-capitalize">
-                  tickets
-              </span>
-          </a>
-      </li>
-      <li class="has-subnav create">
-          <a class="nav-link" routerLink="/ticketcreate" routerLinkActive="active-link">
-             <i class="fa fa-plus fa-2x"></i>
-              <span class="nav-text">
-                  Create
-              </span>
-          </a>
-      </li>
-      
-  </ul> 
-  <!-- <ul class="logout">
-      <li>
-         <a href="#">
-               <i class="fa fa-power-off fa-2x"></i>
-              <span class="nav-text">
-                  Logout
-              </span>
-          </a>
-      </li>  
-  </ul> -->
-</nav>
+    </nav>
+</div>

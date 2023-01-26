@@ -1,201 +1,140 @@
-<!-- 
-TODO have a look at this: https://github.com/ng-select/ng-select but I don't like how the styling is handled-->
-<div class="container d-flex">
-  <!-- TODO: IF per callback quando si fa submit dell'edit -->
-  <div class="col-2"></div>
-  <form class="col-10" #ticketForm="ngForm" (ngSubmit)="editMode === true ? updateTicket(ticketForm) : addTicket(ticketForm)">
-    
+<div class="container">
+
+  <form class="" #ticketForm="ngForm" (ngSubmit)="editMode === true ? updateTicket(ticketForm) : addTicket(ticketForm)">
+
     <!-- <p>editMode {{ editMode | json }}</p>
     <p>model binding debug: {{ ticketModel | json }}</p> -->
 
-    <h2 class="display-2 py-3">{{editMode ? 'Edit ticket' : 'New ticket'}}</h2>
+    <h2 class="display-3 py-3">{{editMode ? 'Edit ticket' : 'Create new ticket'}}</h2>
 
-      <div class="spinner-border text-primary me-3" role="status" *ngIf="loading && users != undefined" >
-        <span class="sr-only"></span>
-      </div>
-    
+    <div class="spinner-border text-primary me-3" role="status" *ngIf="loading && users != undefined">
+      <span class="sr-only"></span>
+    </div>
 
-    <div class="form-group" *ngIf="!loading">
-      <div class="ticketInput col-6">
-        <label class="pt-3" for="title"><h6>Title</h6></label>
-        <input
-          type="text"
-          class="form-control"
-          id="title"
-          name="title"
-          [(ngModel)]="ticketModel.title"
-          required
-          #title="ngModel"
-        />
-        <div
-          [hidden]="title.valid || title.pristine"
-          class="alert alert-danger"
-        >
-          Title is required
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="" *ngIf="!loading">
+          <div class="form-group ticketTitle">
+            <label class="pt-3" for="title">
+              <h6>Title</h6>
+            </label>
+            <input type="text" class="form-control" id="title" name="title" [(ngModel)]="ticketModel.title" required
+              #title="ngModel" />
+            <div [hidden]="title.valid || title.pristine" class="alert alert-danger">
+              Title is required
+            </div>
+          </div>
+
+          <div class="form-group ticketDescription">
+            <label class="pt-3" for="description">
+              <h6>Description</h6>
+            </label>
+            <textarea type="text" rows="11" class="form-control" id="description" name="description"
+              [(ngModel)]="ticketModel.description" required #description="ngModel"></textarea>
+            <div [hidden]="description.valid || description.pristine" class="alert alert-danger">
+              Description is required
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="ticketDescription col-6">
-        <label class="pt-3" for="description"><h6>Description</h6></label>
-        <textarea
-          type="text"
-          rows="3"
-          class="form-control"
-          id="description"
-          name="description"
-          [(ngModel)]="ticketModel.description"
-          required
-          #description="ngModel"
-        ></textarea>
-        <div
-          [hidden]="description.valid || description.pristine"
-          class="alert alert-danger"
-        >
-          Description is required
-        </div>
-      </div>
 
-      <div class="ticketCreatedBy col-6">
-        <label class="pt-3" for="createdBy"
-        [hidden]="editMode === true"
-          ><h6>Created by (typehead)</h6></label
-        >
-        <input
-          id="createdBy"
-          name="createdBy"
-          type="text"
-          class="form-control"
-          [hidden]="editMode === true"
-          [ngbTypeahead]="searchUser"
-          [resultFormatter]="userResultFormatter"
-          [inputFormatter]="userInputFormatter"
-          [(ngModel)]="ticketModel.createdBy"
-          #createdBy="ngModel"
-          required
-        />
-        <div
-          [hidden]="createdBy.valid || createdBy.pristine"
-          class="alert alert-danger"
-        >
-          Created By is required
-        </div>
-        <!-- <label for="createdBy">Created by</label>
+      <div class="col-md-6">
+
+
+        <div class="form-group ticketCreatedBy">
+          <label class="pt-3" for="createdBy" [hidden]="editMode === true">
+            <h6>Created by (typehead)</h6>
+          </label>
+          <input id="createdBy" name="createdBy" type="text" class="form-control" [hidden]="editMode === true"
+            [ngbTypeahead]="searchUser" [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter"
+            [(ngModel)]="ticketModel.createdBy" #createdBy="ngModel" required />
+          <div [hidden]="createdBy.valid || createdBy.pristine" class="alert alert-danger">
+            Created By is required
+          </div>
+          <!-- <label for="createdBy">Created by</label>
               <select class="form-control" id="createdBy" name="createdBy" ngModel>
                 <option *ngFor="let user of users" [value]="user.url">{{ user.email}}</option>
               </select> -->
-      </div>
-
-      <div class="ticketRequestedBy col-6">
-        <label class="pt-3" for="requestedBy"
-          ><h6>RequestedBy (typehead)</h6></label
-        >
-        <input
-          id="requestedBy"
-          name="requestedBy"
-          type="text"
-          class="form-control"
-          [ngbTypeahead]="searchUser"
-          [resultFormatter]="userResultFormatter"
-          [inputFormatter]="userInputFormatter"
-          [(ngModel)]="ticketModel.requestedBy"
-          #requestedBy="ngModel"
-          required
-        />
-        <div
-          [hidden]="requestedBy.valid || requestedBy.pristine"
-          class="alert alert-danger"
-        >
-          Requested By is required
         </div>
-        <!-- <label for="requestedBy">Requested by</label>
+
+
+
+
+        <div class="form-group ticketRequestedBy">
+          <label class="pt-3" for="requestedBy">
+            <h6>RequestedBy (typehead)</h6>
+          </label>
+          <input id="requestedBy" name="requestedBy" type="text" class="form-control" [ngbTypeahead]="searchUser"
+            [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter"
+            [(ngModel)]="ticketModel.requestedBy" #requestedBy="ngModel" required />
+          <div [hidden]="requestedBy.valid || requestedBy.pristine" class="alert alert-danger">
+            Requested By is required
+          </div>
+          <!-- <label for="requestedBy">Requested by</label>
           <select class="form-control" id="requestedBy" name="requestedBy" ngModel>
             <option *ngFor="let user of users" [value]="user.url">{{ user.email }}</option>
           </select> -->
-      </div>
-
-      <div class="requestedFor col-6">
-        <label class="pt-3" for="requestedFor"
-          ><h6>RequestedFor (typehead)</h6></label
-        >
-        <input
-          id="requestedFor"
-          name="requestedFor"
-          type="text"
-          class="form-control"
-          [ngbTypeahead]="searchUser"
-          [resultFormatter]="userResultFormatter"
-          [inputFormatter]="userInputFormatter"
-          [(ngModel)]="ticketModel.requestedFor"
-          #requestedFor="ngModel"
-          required
-        />
-        <div
-          [hidden]="requestedFor.valid || requestedFor.pristine"
-          class="alert alert-danger"
-        >
-          Requested For is required
         </div>
-        <!-- <label for="requestedFor">Requested for</label>
+
+        <div class="form-group requestedFor">
+          <label class="pt-3" for="requestedFor">
+            <h6>RequestedFor (typehead)</h6>
+          </label>
+          <input id="requestedFor" name="requestedFor" type="text" class="form-control" [ngbTypeahead]="searchUser"
+            [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter"
+            [(ngModel)]="ticketModel.requestedFor" #requestedFor="ngModel" required />
+          <div [hidden]="requestedFor.valid || requestedFor.pristine" class="alert alert-danger">
+            Requested For is required
+          </div>
+          <!-- <label for="requestedFor">Requested for</label>
           <select class="form-control" id="requestedFor" name="requestedFor" ngModel>
             <option *ngFor="let user of users" [value]="user.url">{{ user.email}}</option>
           </select> -->
+        </div>
+
+        <div class="form-group ticketCreationDate">
+          <label class="pt-3" [hidden]="editMode === true" for="creationDate">
+            <h6>Creation Date</h6>
+          </label>
+          <input type="datetime-local" class="form-control" id="creationDate" name="creationDate"
+            [hidden]="editMode === true" [(ngModel)]="ticketModel.creationDate" #creationDate="ngModel" required />
+        </div>
+
+        <div class="form-group form-group ticketDueDate ">
+          <label class="pt-3" for="dueDate">
+            <h6>Due Date</h6>
+          </label>
+          <input type="datetime-local" class="form-control" id="dueDate" name="dueDate"
+            [(ngModel)]="ticketModel.dueDate" #dueDate="ngModel" required />
+        </div>
+
+        <div *ngIf='editMode === true' class="form-group ticketCompleted">
+          <br>
+          <br>
+          <br>
+          <input type="checkbox" id="completed" name="completed" [ngModel]="false" ngModel />
+          <label for="completed" class="form-check-label">
+            &nbsp;Ticket is completed</label>
+        </div>
       </div>
 
-      <div class="ticketCreationDate col-6">
-        <label class="pt-3" [hidden]="editMode === true" for="creationDate"><h6>Creation Date</h6></label>
-        <input
-          type="datetime-local"
-          class="form-control"
-          id="creationDate"
-          name="creationDate"
-          [hidden]="editMode === true"
-          [(ngModel)]="ticketModel.creationDate"
-          #creationDate="ngModel"
-          required
-        />
-      </div>
 
-      <div class="ticketDueDate col-6">
-        <label class="pt-3" for="dueDate"><h6>Due Date</h6></label>
-        <input
-          type="datetime-local"
-          class="form-control"
-          id="dueDate"
-          name="dueDate"
-          [(ngModel)]="ticketModel.dueDate"
-          #dueDate="ngModel"
-          required
-        />
-      </div>
+
     </div>
-    <br />
 
-    <input
-      type="checkbox"
-      id="completed"
-      name="completed"
-      [ngModel]="false"
-      ngModel
-    />
-    <label for="completed" class="form-check-label">
-      &nbsp;Ticket is completed</label
-    >
+
+
     <br />
     <br />
     <!-- TODO ng if per cambiare il pulsante in edit mode -->
     <div>
-      <button
-        class="btn btn-primary"
-        [disabled]="!ticketForm.valid"
-        type="submit"
-        (click)="openModal()">
-        {{ editMode === true ? 'Edit ticket' : 'Add new ticket' }}
+      <button class="btn btn-primary" [disabled]="!ticketForm.valid" type="submit" (click)="openModal()">
+        {{ editMode === true ? 'Edit ticket' : 'Create' }}
       </button>
-     
-      <button
-        class="btn btn-dark mx-2"
-        routerLink="/ticketall"
-        type="button">
+
+      <button class="btn btn-secondary mx-2" routerLink="/ticketall" type="button">
         Go back
       </button>
     </div>

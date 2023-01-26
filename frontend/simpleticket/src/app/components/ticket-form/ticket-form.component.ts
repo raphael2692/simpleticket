@@ -93,6 +93,7 @@ export class TicketFormComponent implements OnInit {
     form.value["createdBy"] = form.value["createdBy"]["url"];
     form.value["requestedBy"] = form.value["requestedBy"]["url"];
     form.value["requestedFor"] = form.value["requestedFor"]["url"];
+    form.value["completed"] = false // new false default
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.name = this.ticketModel.title
     // ...
@@ -170,11 +171,11 @@ export class TicketFormComponent implements OnInit {
   template: `
   <div>
     <div class="modal-header">
-			<h4 class="modal-title">{{isAddedNgm ? 'Creation ticket completed correctly' : 'Ticket modified correctly'}}</h4>
+			<h4 class="modal-title">{{isAddedNgm ? 'Ticket created correctly' : 'Ticket modified correctly'}}</h4>
 			<button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
 		</div>
 		<div class="modal-body">
-			<p>Your ticket <b>{{ name }}</b> has been sent!</p>
+			<p>Your ticket <b>{{ name }}</b> has been submitted!</p>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>

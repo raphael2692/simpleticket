@@ -1,34 +1,32 @@
 
-<div class="container d-flex">
-  <div class="col-2"></div>
-  <div class="col-10">
-    <h2 class="display-2 py-3">Tickets</h2>
-  <table class="table table-dark">
+<div class="container">
+
+
+    <h2 class="display-3 py-3">Tickets</h2>
+  <table class="table table-light">
     <thead>
       <tr>
-        <th scope="col">Url</th>
         <th scope="col">Title</th>
         <th scope="col">Description</th>
         <th scope="col">Creation date</th>
-        <th scope="col">Details</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Delete</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody *ngFor="let ticket of tickets">
       <tr>
-          <td>{{ ticket.url }}</td>
           <td>{{ ticket.title }}</td>
           <td>{{ ticket.description }}</td>
-          <td>{{ ticket.creationDate | date: 'dd/MM/yyyy - HH:mm' }}</td>
+          <td>{{ ticket.creationDate | date: 'dd/MM/yyyy HH:mm' }}</td>
           <td>
-            <button type="button" class="btn btn-sm btn-info"
+            <button type="button" class="btn btn-sm btn-primary"
             [routerLink]="['/ticketdetail']" [queryParams]="{ id: ticket.id }">
               Ticket details
             </button>
           </td>
           <td>
-            <button type="button" class="btn btn-sm btn-light"
+            <button type="button" class="btn btn-sm btn-warning"
             [routerLink]="['/ticketcreate']" [queryParams]="{ edit: true, id:ticket.id}">
               Edit ticket
             </button>
@@ -39,9 +37,8 @@
       </tr>
     </tbody>
   </table>
-  <div class="alert alert-warning" role="alert" *ngIf="tickets.length == 0">
-    <h5>Nessun ticket registrato</h5>
+  <div class="alert alert-warning" role="alert" *ngIf="tickets === undefined">
+    <h5>Nothing here but dust...</h5>
   </div>
   </div>
   
-</div>

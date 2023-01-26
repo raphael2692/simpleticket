@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+
+import { FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,18 +10,22 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  isLoginMode: boolean = true;
 
-  constructor() { }
+loginForm = this.formBuilder.group({
+  username: '',
+  password: ''
+});
+
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
 
-  onSubmit(form: NgForm){
-  }
-
-  switchMode() {
-    this.isLoginMode = !this.isLoginMode;
+  onSubmit() {
+    const val = this.loginForm.value;
+    
+    this.authService.login(val.username, val.password)
+    console.log(val)
   }
 
 }
