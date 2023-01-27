@@ -4,11 +4,11 @@ import * as moment from 'moment';
 import { User } from '../models/user';
 import jwt_decode from 'jwt-decode';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 export interface Token {
-  access:string,
+  access: string,
   refresh: string
 }
 
@@ -19,7 +19,7 @@ export interface TokenPayload {
   iat: string
   user_id: string
 }
-function parseJwt (token:string) {
+function parseJwt(token: string) {
   return JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
 }
 
@@ -29,7 +29,7 @@ function parseJwt (token:string) {
 export class AuthService {
 
 
-  loggedUser$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  isLoggedInSubject = new BehaviorSubject<boolean>(this.isTokenValid());
 
   constructor(private http: HttpClient, private jwt: JwtHelperService) {
 
@@ -39,7 +39,7 @@ export class AuthService {
     return this.http.post<Token>('http://localhost:8000/api/token/', { username, password })
       .subscribe(
         res => this.setSession(res)
-        );
+      );
   }
 
   private setSession(token: Token) {
@@ -48,19 +48,21 @@ export class AuthService {
     const expiresAt = moment().add(payload.exp, 'second');
     localStorage.setItem('id_token', token.access);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
-    console.log(token)
-    console.log(token.access)
-    this.loggedUser$.next(true)
+    // console.log(token)
+    // console.log(token.access)
+    this.isLoggedInSubject.next(true)
+
   }
-  
+
 
   logout() {
     localStorage.removeItem("id_token");
     localStorage.removeItem("expires_at");
+    this.isLoggedInSubject.next(false)
   }
 
-  public isLoggedIn() {
-    return moment().isBefore(this.getExpiration()); 
+  public isTokenValid() {
+    return moment().isBefore(this.getExpiration());
   }
 
   isLoggedOut() {
@@ -72,4 +74,10 @@ export class AuthService {
     const expiresAt = expiration ? JSON.parse(expiration) : "";
     return moment(expiresAt);
   }
+
+  isLoggedIn(): Observable<boolean> {
+    return this.isLoggedInSubject.asObservable();
+
+  }
+
 }
