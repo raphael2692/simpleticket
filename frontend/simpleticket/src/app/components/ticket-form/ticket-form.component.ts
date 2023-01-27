@@ -93,6 +93,7 @@ export class TicketFormComponent implements OnInit {
     form.value["createdBy"] = form.value["createdBy"]["url"];
     form.value["requestedBy"] = form.value["requestedBy"]["url"];
     form.value["requestedFor"] = form.value["requestedFor"]["url"];
+    console.log(form.value)
     form.value["completed"] = false // new false default
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.name = this.ticketModel.title

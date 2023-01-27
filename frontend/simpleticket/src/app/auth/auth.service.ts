@@ -5,6 +5,7 @@ import { User } from '../models/user';
 import jwt_decode from 'jwt-decode';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 
 export interface Token {
@@ -31,7 +32,7 @@ export class AuthService {
 
   isLoggedInSubject = new BehaviorSubject<boolean>(this.isTokenValid());
 
-  constructor(private http: HttpClient, private jwt: JwtHelperService) {
+  constructor(private http: HttpClient, private jwt: JwtHelperService,private router: Router) {
 
   }
 
@@ -46,17 +47,18 @@ export class AuthService {
     const payload = this.jwt.decodeToken(token.access)
     console.log(payload)
     const expiresAt = moment().add(payload.exp, 'second');
-    localStorage.setItem('id_token', token.access);
+    localStorage.setItem('access_token', token.access);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
     // console.log(token)
     // console.log(token.access)
     this.isLoggedInSubject.next(true)
+    this.router.navigate(['/ticketall'])
 
   }
 
 
   logout() {
-    localStorage.removeItem("id_token");
+    localStorage.removeItem("access_token");
     localStorage.removeItem("expires_at");
     this.isLoggedInSubject.next(false)
   }
