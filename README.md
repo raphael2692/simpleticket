@@ -1,23 +1,37 @@
+# Simpleticket
+
+Basic web application built with Django REST Framework and Angular2, for educational pourposes. It has a little more feature then the usual 'TODO like' examples.
+
+Schema: Ticket <- User
+
+## Features
+
+1. django admin panel
+2. CRUD support
+3. jwt authentication
+4. related records management
+
+
 ## setup
 
 ```
+# backend
+python -m venv env 
+source env/bin/activate
 pip install -r requirements.txt
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+
+# frontend
 cd frontend/simpleticket
 npm install
+ng s
+
 ```
 
 ## todo
-- edit create form to handle 'edit mode' V
-- create edit route V
-- create delete route V
-- add form validation V
-- add edit/delete buttons to tiket-form V
-- add jwt token auth in django
-- add authentication service angular
-- add login pages angualr V
-- add pagination for tickets (django + angular)
-- add pagination/alternative method for user reference in ticket (angular)  <--- partially achieved with angular bootstrap V
-- restyle V
-
-## bugs
-- time zone is different between angular and django
+- minimal restyle
+- further code polish
+- refresh token support on frontend
+- fix time zone gap
