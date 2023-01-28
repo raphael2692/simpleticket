@@ -32,7 +32,7 @@ export class AuthService {
 
   isLoggedInSubject = new BehaviorSubject<boolean>(this.isTokenValid());
 
-  constructor(private http: HttpClient, private jwt: JwtHelperService,private router: Router) {
+  constructor(private http: HttpClient, private jwt: JwtHelperService, private router: Router) {
 
   }
 
@@ -81,5 +81,6 @@ export class AuthService {
     return this.isLoggedInSubject.asObservable();
 
   }
+
 
 }

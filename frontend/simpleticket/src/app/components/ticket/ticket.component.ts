@@ -4,7 +4,8 @@ import { Ticket } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/services/ticket.service';
 import { User } from './../../models/user';
 import { UserService } from 'src/app/services/user.service';
-import { interval, Subscription, switchMap, timer } from 'rxjs';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-ticket',
@@ -13,65 +14,46 @@ import { interval, Subscription, switchMap, timer } from 'rxjs';
 })
 export class TicketComponent implements OnInit {
 
-  id!: number;
+  ticketId!: number;
   ticket!: Ticket
-  userCreator!: User
-  userRequested!: User
-  userRequestedFor!: User
-  loading: boolean = false
-  user!: User
-  email!: string
+  userCreator!: Observable<User>
+  userRequestedBy!: Observable<User>
+  userRequestedFor!: Observable<User>
 
   constructor(
     private api: TicketService,
     private route: ActivatedRoute,
     private router: Router,
-    private userApi: UserService
+    private userApi: UserService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
+    if (!this.authService.isTokenValid()) {
+      this.router.navigate(['/login'])
+    }
 
-    this.route.queryParams.subscribe(params => {
-      this.id = Number(params['id']);
-      this.api.getTicket(this.id)
-        .subscribe(
-          (data) => {
-            this.loading = true
-            this.ticket = data
-            this.userApi.getUser(this.ticket.createdBy).subscribe(
-              (data) => this.userCreator = data
-            )
-            this.userApi.getUser(this.ticket["requestedBy"]).subscribe(
-              (data) => this.userRequested = data
-            )
-            this.userApi.getUser(this.ticket["requestedFor"]).subscribe(
-              (data) => this.userRequestedFor = data
-            )
-
-          })
-    })
+    this.route.queryParams.subscribe(
+      params => {
+        this.ticketId = Number(params['id']);
+        this.api.getTicket(this.ticketId)
+          .subscribe(
+            (ticketData) => {
+              this.ticket = ticketData
+              this.userCreator = this.userApi.getUser(this.ticket.createdBy)
+              this.userRequestedBy = this.userApi.getUser(this.ticket.requestedBy)
+              this.userRequestedFor = this.userApi.getUser(this.ticket.requestedFor)
+            }
+          )
+      }
+    )
   }
-
-  // getUsers(){
-  //   this.userApi.getUsers().subscribe(
-  //     (data: User[]) => {
-  //       // console.log(data[0].email)
-
-  //       //       this.ticket.createdBy = data[0].email,
-  //       //       this.ticket.requestedBy = data[0].email,
-  //       //       this.ticket.requestedFor = data[0].email
-
-  //             console.log(data)  
-  //       } 
-  //   )
-
-  // }
 
   deleteTicket(id: number | undefined) {
     if (!id) return console.log('id non trovato')
-    if (confirm('Sei sicuro di vole eliminare il ticket ' + id + ' ?') == true)
+    if (confirm('Sei sicuro di vole eliminare il ticket: \"' + this.ticket.title + '\"?') == true)
       this.api.deleteTicket(id).subscribe(
-        data => {
+        () => {
           this.router.navigate(["/ticketall"])
         },
         error => {

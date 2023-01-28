@@ -8,7 +8,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li  *ngIf="!(isLoggedIn | async)" class="nav-item">
+                <li *ngIf="!(isLoggedIn | async)" class="nav-item">
                     <a class="nav-link" routerLink="/login" routerLinkActive="active-link"
                         [routerLinkActiveOptions]="{exact:true}">
                         <i class="fa fa-home fa-2x"></i>
@@ -17,7 +17,7 @@
                         </span>
                     </a>
                 </li>
-                <li  *ngIf='(isLoggedIn | async)' class="nav-item ">
+                <li *ngIf='(isLoggedIn | async)' class="nav-item ">
                     <a class="nav-link" routerLink="/" routerLinkActive="active-link" (click)="authService.logout()"
                         [routerLinkActiveOptions]="{exact:true}">
                         <i class="fa fa-home fa-2x"></i>

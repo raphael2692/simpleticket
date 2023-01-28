@@ -2,19 +2,15 @@
 
   <form class="" #ticketForm="ngForm" (ngSubmit)="editMode === true ? updateTicket(ticketForm) : addTicket(ticketForm)">
 
-    <!-- <p>editMode {{ editMode | json }}</p>
-    <p>model binding debug: {{ ticketModel | json }}</p> -->
+    <p>editMode {{ editMode | json }}</p>
+    <p>model binding debug: {{ ticketModel | json }}</p>
 
     <h2 class="display-3 py-3">{{editMode ? 'Edit ticket' : 'Create new ticket'}}</h2>
-
-    <div class="spinner-border text-primary me-3" role="status" *ngIf="loading && users != undefined">
-      <span class="sr-only"></span>
-    </div>
 
     <div class="row">
 
       <div class="col-md-6">
-        <div class="" *ngIf="!loading">
+        <div class="">
           <div class="form-group ticketTitle">
             <label class="pt-3" for="title">
               <h6>Title</h6>
@@ -39,9 +35,7 @@
         </div>
       </div>
 
-
       <div class="col-md-6">
-
 
         <div class="form-group ticketCreatedBy">
           <label class="pt-3" for="createdBy" [hidden]="editMode === true">
@@ -60,8 +54,6 @@
         </div>
 
 
-
-
         <div class="form-group ticketRequestedBy">
           <label class="pt-3" for="requestedBy">
             <h6>RequestedBy (typehead)</h6>
@@ -72,10 +64,6 @@
           <div [hidden]="requestedBy.valid || requestedBy.pristine" class="alert alert-danger">
             Requested By is required
           </div>
-          <!-- <label for="requestedBy">Requested by</label>
-          <select class="form-control" id="requestedBy" name="requestedBy" ngModel>
-            <option *ngFor="let user of users" [value]="user.url">{{ user.email }}</option>
-          </select> -->
         </div>
 
         <div class="form-group requestedFor">
@@ -88,10 +76,6 @@
           <div [hidden]="requestedFor.valid || requestedFor.pristine" class="alert alert-danger">
             Requested For is required
           </div>
-          <!-- <label for="requestedFor">Requested for</label>
-          <select class="form-control" id="requestedFor" name="requestedFor" ngModel>
-            <option *ngFor="let user of users" [value]="user.url">{{ user.email}}</option>
-          </select> -->
         </div>
 
         <div class="form-group ticketCreationDate">
@@ -124,13 +108,10 @@
 
     </div>
 
-
-
     <br />
     <br />
-    <!-- TODO ng if per cambiare il pulsante in edit mode -->
     <div>
-      <button class="btn btn-primary" [disabled]="!ticketForm.valid" type="submit" (click)="openModal()">
+      <button class="btn btn-primary" [disabled]="!ticketForm.valid" type="submit">
         {{ editMode === true ? 'Edit ticket' : 'Create' }}
       </button>
 

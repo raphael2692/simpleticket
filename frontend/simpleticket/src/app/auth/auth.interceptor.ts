@@ -16,23 +16,23 @@ import { Observable } from 'rxjs';
 })
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authApi: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log("intercept!!")
-    const isTokenValid = this.authApi.isTokenValid()
+    // console.log("Auth interceptor callback")
+    const isTokenValid = this.authService.isTokenValid()
 
     if (isTokenValid) {
-      const cloned = req.clone({
+      const clonedReq = req.clone({
         headers: req.headers.set("Authorization",
           "Bearer " + localStorage.getItem("access_token"))
       });
 
-      return next.handle(cloned);
+      return next.handle(clonedReq);
 
     }
     else {
-      this.router.navigate(['/login'])
+
       return next.handle(req);
     }
 

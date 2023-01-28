@@ -1,42 +1,33 @@
-<div class="container">
-
-
-    <h1 class="display-3">Ticket detail</h1>
-
+<div class="container" *ngIf="ticket">
+    <h1 class="display-3 py-3">Ticket detail</h1>
     <div class="col-md-6">
-        <ul class="list-group list-group" *ngIf="loading">
-            <li class="list-group-item">Url: <b>{{ ticket?.url }}</b></li>
-            <li class="list-group-item">Id: <b>{{ ticket?.id }}</b></li>
-            <li class="list-group-item">Title: <b>{{ ticket?.title }}</b></li>
-            <li class="list-group-item">Description: <b>{{ ticket?.description }}</b></li>
-            <li class="list-group-item">Creation Date: <b>{{ ticket?.creationDate | date: 'dd/MM/yyyy - HH:mm' }}</b>
+        <ul class="list-group list-group">
+            <!-- <li class="list-group-item">Url: <b>{{ ticket.url }}</b></li> -->
+            <!-- <li class="list-group-item">Id: <b>{{ ticket.id }}</b></li> -->
+            <li class="list-group-item">Title: <b>{{ ticket.title }}</b></li>
+            <li class="list-group-item">Description: <b>{{ ticket.description }}</b></li>
+            <li class="list-group-item">Creation Date: <b>{{ ticket.creationDate | date: 'dd/MM/yyyy - HH:mm' }}</b>
             </li>
-            <li class="list-group-item">Due Date: <b>{{ ticket?.dueDate | date: 'dd/MM/yyyy - HH:mm' }}</b></li>
-            <li class="list-group-item">Created By: <b>{{ userCreator?.email }}</b></li>
-            <li class="list-group-item">Requested By: <b>{{ userRequested?.email }}</b></li>
-            <li class="list-group-item">Requested For: <b>{{ userRequestedFor?.email }}</b></li>
-
-
-
-
+            <li class="list-group-item">Due Date: <b>{{ ticket.dueDate | date: 'dd/MM/yyyy - HH:mm' }}</b></li>
+            <br>
+            <div *ngIf="(userCreator | async)">
+                <li class="list-group-item">Created By: <b>{{ (userCreator| async)?.email }}</b></li>
+                <li class="list-group-item">Created By: <b>{{ (userRequestedBy | async)?.email }}</b></li>
+                <li class="list-group-item">Created By: <b>{{ (userRequestedFor | async)?.email }}</b></li>
+            </div>
         </ul>
     </div>
     <div class="col-md-6">
-
     </div>
     <br>
     <br>
     <div class="inline">
-
-        <button type="button" class="btn btn-danger" (click)="deleteTicket(ticket.id)">Detele ticket</button>
+        <button type="button" class="btn btn-dark" routerLink="/ticketall">Go back</button>
         <button type="button" class="btn btn-primary mx-2" [routerLink]="['/ticketcreate']"
             [queryParams]="{ edit: true, id:ticket.id}">
             Edit ticket
         </button>
-        <button type="button" class="btn btn-dark" routerLink="/ticketall">Go back</button>
+        <button type="button" class="btn btn-danger" (click)="deleteTicket(ticket.id)">Detele ticket</button>
     </div>
-
 </div>
-
-
 <!-- <div> {{ ticket | json }}</div> -->

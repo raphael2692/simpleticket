@@ -18,6 +18,9 @@ import { LoginComponent } from './auth/login/login.component';
 import { JwtModule } from "@auth0/angular-jwt";
 
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { ErrorInterceptor } from './services/error.interceptor';
+
+
 
 @NgModule({
   declarations: [
@@ -28,9 +31,9 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     NavbarComponent,
     TicketFormComponent,
     ModalComponent,
-     LoginComponent,
-     
-  
+    LoginComponent,
+
+
   ],
   imports: [
     BrowserModule,
@@ -38,16 +41,20 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     HttpClientModule,
     NgbModule,
     FormsModule,
-    
+
     ReactiveFormsModule,
-    
+
     JwtModule.forRoot({
       config: {
-        tokenGetter:  () => localStorage.getItem('access_token')
+        tokenGetter: () => localStorage.getItem('access_token')
       }
     })
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    
+  ],
   bootstrap: [AppComponent],
   entryComponents: [ModalComponent]
 })
