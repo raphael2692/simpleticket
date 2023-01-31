@@ -34,9 +34,9 @@ export class ErrorInterceptor implements HttpInterceptor {
           } else {
             // server-side error
             errorMessage = `Error Status: ${error.status}\nMessage: ${error.message}`;
-            // if (error.status === 401) {
-            //   this.router.navigate(['/login'])
-            // }
+            if (error.status === 401) {
+              this.router.navigate(['/login'])
+             }
           }
           console.log(errorMessage);
           return throwError(() => new Error(errorMessage));
