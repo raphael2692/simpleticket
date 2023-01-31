@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/services/ticket.service';
-import { User } from './../../models/user';
 import { UserService } from 'src/app/services/user.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -30,7 +29,6 @@ export class TicketComponent implements OnInit {
   ) { }
 
 
-  // this.isLoaded.next(true)
   ngOnInit(): void {
     if (!this.authService.isTokenValid()) {
       this.router.navigate(['/login'])
@@ -39,14 +37,14 @@ export class TicketComponent implements OnInit {
     this.route.queryParams.subscribe(
       params => {
         this.ticketId = Number(params['id']);
-        this.loadData()
+        this.loadTicketData()
 
       }
     )
   }
 
 
-  loadData() {
+  loadTicketData() {
     this.api.getTicket(this.ticketId)
     .subscribe(
       (ticketData) => {
