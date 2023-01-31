@@ -10,7 +10,6 @@ from rest_framework import permissions
 from simpleticket.simpleticketapp.serializers import UserSerializer, GroupSerializer, TicketSerializer, TokenObtainPairResponseSerializer, TokenRefreshResponseSerializer
 
 # JWT
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -48,23 +47,23 @@ class TicketViewSet(viewsets.ModelViewSet):
 
 
 
-class DecoratedTokenObtainPairView(TokenObtainPairView):
-    @swagger_auto_schema(
-        responses={
-            status.HTTP_200_OK: TokenObtainPairResponseSerializer,
-        }
-    )
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+# class DecoratedTokenObtainPairView(TokenObtainPairView):
+#     @swagger_auto_schema(
+#         responses={
+#             status.HTTP_200_OK: TokenObtainPairResponseSerializer,
+#         }
+#     )
+#     def post(self, request, *args, **kwargs):
+#         return super().post(request, *args, **kwargs)
 
 
 
-class DecoratedTokenRefreshView(TokenRefreshView):
-    @swagger_auto_schema(
-        responses={
-            status.HTTP_200_OK: TokenRefreshResponseSerializer,
-        }
-    )
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+# class DecoratedTokenRefreshView(TokenRefreshView):
+#     @swagger_auto_schema(
+#         responses={
+#             status.HTTP_200_OK: TokenRefreshResponseSerializer,
+#         }
+#     )
+#     def post(self, request, *args, **kwargs):
+#         return super().post(request, *args, **kwargs)
 

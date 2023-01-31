@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'simpleticket.simpleticketapp',
     'corsheaders',
     'rest_framework_simplejwt',
+   'drf_spectacular',
     
 ]
 
@@ -143,10 +144,21 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
 
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+        
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 
 }
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     }
+
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'simpleticket API',
+    'DESCRIPTION': 'simple troubl ticketing system',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
