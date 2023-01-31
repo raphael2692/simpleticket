@@ -36,7 +36,7 @@ export class AuthService {
 
   }
 
-  login(username: string, password: string) {
+  login(username: string | undefined | null, password: string | undefined | null) {
     return this.http.post<Token>('http://localhost:8000/api/token/', { username, password })
       .subscribe(
         res => this.setSession(res)
@@ -45,7 +45,7 @@ export class AuthService {
 
   private setSession(token: Token) {
     const payload = this.jwt.decodeToken(token.access)
-    console.log(payload)
+    // console.log(payload)
     const expiresAt = moment().add(payload.exp, 'second');
     localStorage.setItem('access_token', token.access);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));

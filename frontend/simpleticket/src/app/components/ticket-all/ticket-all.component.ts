@@ -3,6 +3,7 @@ import { TicketService } from 'src/app/services/ticket.service';
 import { Router } from '@angular/router';
 import { Ticket } from './../../models/ticket';
 import { AuthService } from 'src/app/auth/auth.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-ticket-all',
@@ -11,7 +12,9 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 
 export class TicketAllComponent implements OnInit {
-  tickets!: Ticket[];
+
+  isLoaded: BehaviorSubject<boolean> = new BehaviorSubject(false)
+  tickets!: Ticket[]
   ticket!: Ticket
   constructor(private api: TicketService,
     private router: Router,
@@ -23,19 +26,16 @@ export class TicketAllComponent implements OnInit {
       this.router.navigate(['/login'])
     }
 
-    this.showTickets()
+    this.loadTicketData()
     this.api.onAddedTicket.subscribe(data => {
-      this.showTickets()
+      this.loadTicketData()
       console.log(data)
     }
     )
 
   }
 
-  showTickets() {
-    this.api.getTickets()
-      .subscribe((tickets: Ticket[]) => this.tickets = tickets);
-  }
+
 
   deleteTicket(id: number) {
     if (!id) return console.log(id + ' non trovato')
@@ -43,8 +43,16 @@ export class TicketAllComponent implements OnInit {
       this.api.deleteTicket(id).subscribe(
         data => {
           this.router.navigate(["/ticketall"])
-          this.showTickets()
+          this.loadTicketData()
         })
+  }
+
+  loadTicketData() {
+    this.api.getTickets()
+    .subscribe((tickets: Ticket[]) => {
+      this.tickets = tickets
+      this.isLoaded.next(true)
+    });
   }
 
 }

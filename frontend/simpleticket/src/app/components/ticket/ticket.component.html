@@ -1,4 +1,4 @@
-<div class="container" *ngIf="ticket">
+<div class="container" *ngIf="(isLoaded | async)">
     <h1 class="display-3 py-3">Ticket detail</h1>
     <div class="col-md-6">
         <ul class="list-group list-group">
@@ -10,10 +10,16 @@
             </li>
             <li class="list-group-item">Due Date: <b>{{ ticket.dueDate | date: 'dd/MM/yyyy - HH:mm' }}</b></li>
             <br>
-            <div *ngIf="(userCreator | async)">
+            <!-- <div *ngIf="(userCreator | async)">
                 <li class="list-group-item">Created By: <b>{{ (userCreator| async)?.email }}</b></li>
                 <li class="list-group-item">Created By: <b>{{ (userRequestedBy | async)?.email }}</b></li>
                 <li class="list-group-item">Created By: <b>{{ (userRequestedFor | async)?.email }}</b></li>
+            </div> -->
+
+            <div>
+                <li class="list-group-item">Created by: <b>{{ userCreator }}</b></li>
+                <li class="list-group-item">Requested by: <b>{{ userRequestedBy }}</b></li>
+                <li class="list-group-item">Requested for: <b>{{ userRequestedFor }}</b></li>
             </div>
         </ul>
     </div>

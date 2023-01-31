@@ -1,17 +1,15 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TicketService } from 'src/app/services/ticket.service';
 import { UserService } from 'src/app/services/user.service';
 import { Ticket } from 'src/app/models/ticket';
 import { User } from 'src/app/models/user';
-import { Form, NgForm } from '@angular/forms';
+import {  NgForm } from '@angular/forms';
 
 
-import { Observable, OperatorFunction } from 'rxjs';
+import { BehaviorSubject, Observable, OperatorFunction } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/auth/auth.service';
-
 
 @Component({
   selector: 'app-ticket-create',
@@ -25,14 +23,14 @@ export class TicketFormComponent implements OnInit {
   ticketModel!: Ticket
   editMode: boolean = false
   id: number = 0
+  isLoaded: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
   constructor(private userApi: UserService,
     private ticketApi: TicketService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private authService : AuthService
+    private authService: AuthService
   ) { }
-
 
   ngOnInit(): void {
 
@@ -40,23 +38,15 @@ export class TicketFormComponent implements OnInit {
       this.router.navigate(['/login'])
     }
 
-    this.getRelatedUsers()
-    
     this.activatedRoute.queryParams
       .subscribe(
         params => {
-          console.log(params)
+          // console.log(params)
           if (params["edit"] === 'true') { // TODO: I should handle this better
             this.editMode = true
             this.id = params["id"]
-            this.ticketApi.getTicket(this.id)
-              .subscribe(data => {
-                this.ticketModel = data
-                this.ticketModel.createdBy = this.users.filter(user => user.url === this.ticketModel.createdBy)[0]
-                this.ticketModel.requestedBy = this.users.filter(user => user.url === this.ticketModel.requestedBy)[0]
-                this.ticketModel.requestedFor = this.users.filter(user => user.url === this.ticketModel.requestedFor)[0]
-              }
-              )
+            this.loadTicketData()
+
           } else {
 
             this.editMode = false
@@ -66,6 +56,8 @@ export class TicketFormComponent implements OnInit {
               description: "",
               completed: false,
             };
+            this.isLoaded.next(true)
+
           }
         }
       )
@@ -74,17 +66,29 @@ export class TicketFormComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-  getRelatedUsers() {
+  loadTicketData() {
     this.userApi.getUsers()
-      .subscribe((data: User[]) => this.users = data);
-  }
+      .subscribe((data: User[]) => {
+        this.users = data
 
+        this.ticketApi.getTicket(this.id).subscribe(data => {
+
+          this.ticketModel = data
+          this.ticketModel.createdBy = this.users.filter(user => user.url === this.ticketModel.createdBy)[0]
+          this.ticketModel.requestedBy = this.users.filter(user => user.url === this.ticketModel.requestedBy)[0]
+          this.ticketModel.requestedFor = this.users.filter(user => user.url === this.ticketModel.requestedFor)[0]
+          this.isLoaded.next(true)
+        }
+        )
+      });
+
+  }
   addTicket(form: NgForm) {
 
     form.value["createdBy"] = form.value["createdBy"]["url"];
     form.value["requestedBy"] = form.value["requestedBy"]["url"];
     form.value["requestedFor"] = form.value["requestedFor"]["url"];
-    console.log(form.value)
+    // console.log(form.value)
     form.value["completed"] = false
 
     this.ticketApi.addTicket(form.value).subscribe(
@@ -108,8 +112,7 @@ export class TicketFormComponent implements OnInit {
 
     this.ticketApi.updateTicket(this.id, form.value).subscribe(
       data => {
-        console.log(data + ' prova update')
-        console.log(data);
+        // console.log(data);
         this.ticketApi.onAddedTicket.next(this.ticketModel)
 
       },
@@ -140,4 +143,6 @@ export class TicketFormComponent implements OnInit {
 
   userResultFormatter = (user: { email: string }) => user.email;
   userInputFormatter = (user: { email: string }) => user.email;
+
+
 }

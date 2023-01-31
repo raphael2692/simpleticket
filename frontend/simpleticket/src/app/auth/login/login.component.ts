@@ -12,8 +12,8 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
 
 loginForm = this.formBuilder.group({
-  username: '',
-  password: ''
+  username: "",
+  password: ""
 });
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private activatedRoute: ActivatedRoute) { }
@@ -25,7 +25,6 @@ loginForm = this.formBuilder.group({
     const val = this.loginForm.value;
     
     this.authService.login(val.username, val.password)
-    console.log(val)
+    // console.log(val)
   }
-
 }
