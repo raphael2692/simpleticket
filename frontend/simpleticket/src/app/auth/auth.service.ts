@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { User } from '../models/user';
-import jwt_decode from 'jwt-decode';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 
 export interface Token {
@@ -32,14 +32,21 @@ export class AuthService {
 
   isLoggedInSubject = new BehaviorSubject<boolean>(this.isTokenValid());
 
-  constructor(private http: HttpClient, private jwt: JwtHelperService, private router: Router) {
+
+  constructor(private http: HttpClient,
+    private jwt: JwtHelperService,
+    private router: Router,
+    private userService: UserService) {
 
   }
 
   login(username: string | undefined | null, password: string | undefined | null) {
     return this.http.post<Token>('http://localhost:8000/api/token/', { username, password })
       .subscribe(
-        res => this.setSession(res)
+        res => {
+          this.setSession(res)
+          console.log(res)
+        }
       );
   }
 
@@ -51,6 +58,13 @@ export class AuthService {
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
     // console.log(token)
     // console.log(token.access)
+    this.userService.getUserById(payload.user_id).subscribe(
+      (data) => {
+
+        localStorage.setItem("logged_user", JSON.stringify(data))
+        console.log(data)
+      }
+    )
     this.isLoggedInSubject.next(true)
     this.router.navigate(['/ticketall'])
 
@@ -79,8 +93,13 @@ export class AuthService {
 
   isLoggedIn(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
-
+    
   }
 
+  getLoggedInUser() {
+    const user = localStorage.getItem("logged_user")
+    const parsedUser = user ? JSON.parse(user) : new Object
+    return parsedUser
+  }
 
 }

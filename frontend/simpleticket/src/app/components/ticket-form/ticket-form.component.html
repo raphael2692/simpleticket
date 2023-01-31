@@ -2,8 +2,8 @@
 
   <form class="" #ticketForm="ngForm" (ngSubmit)="editMode === true ? updateTicket(ticketForm) : addTicket(ticketForm)">
 
-    <!-- <p>editMode {{ editMode | json }}</p>
-    <p>model binding debug: {{ ticketModel | json }}</p> -->
+      <p>editMode {{ editMode | json }}</p>
+      <p>model binding debug: {{ ticketModel | json }}</p>
 
     <h2 class="display-3 py-3">{{editMode ? 'Edit ticket' : 'Create new ticket'}}</h2>
 

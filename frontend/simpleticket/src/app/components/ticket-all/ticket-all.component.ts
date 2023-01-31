@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Ticket } from './../../models/ticket';
 import { AuthService } from 'src/app/auth/auth.service';
 import { BehaviorSubject } from 'rxjs';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-ticket-all',
@@ -16,15 +17,22 @@ export class TicketAllComponent implements OnInit {
   isLoaded: BehaviorSubject<boolean> = new BehaviorSubject(false)
   tickets!: Ticket[]
   ticket!: Ticket
-  constructor(private api: TicketService,
+
+
+  constructor(
+    private api: TicketService,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService) {
+
+
+  }
 
   ngOnInit(): void {
 
     if (!this.authService.isTokenValid()) {
       this.router.navigate(['/login'])
     }
+
 
     this.loadTicketData()
     this.api.onAddedTicket.subscribe(data => {
@@ -47,12 +55,15 @@ export class TicketAllComponent implements OnInit {
         })
   }
 
+
   loadTicketData() {
+
     this.api.getTickets()
-    .subscribe((tickets: Ticket[]) => {
-      this.tickets = tickets
-      this.isLoaded.next(true)
-    });
+      .subscribe((tickets: Ticket[]) => {
+        this.tickets = tickets
+        this.tickets = this.tickets.filter(ticket => ticket.id === this.authService.getLoggedInUser().id)
+        this.isLoaded.next(true)
+      });
   }
 
 }

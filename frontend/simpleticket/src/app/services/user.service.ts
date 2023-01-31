@@ -22,6 +22,9 @@ export class UserService {
     return this.http.get<User>(userUrl)
   }
 
+  getUserById(id: any) {
+    return this.http.get<User>(`http://localhost:8000/users/${id}/`)
+  }
   // getSUperUser(userUrl: any){
   //  return this.http.get<Ticket>(userUrl)
   // }

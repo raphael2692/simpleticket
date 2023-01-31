@@ -25,7 +25,8 @@ export class TicketFormComponent implements OnInit {
   id: number = 0
   isLoaded: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
-  constructor(private userApi: UserService,
+  constructor(
+    private userService: UserService,
     private ticketApi: TicketService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -37,7 +38,7 @@ export class TicketFormComponent implements OnInit {
     if (!this.authService.isTokenValid()) {
       this.router.navigate(['/login'])
     }
-
+    this.userService.getUsers().subscribe(data => this.users = data)
     this.activatedRoute.queryParams
       .subscribe(
         params => {
@@ -67,7 +68,7 @@ export class TicketFormComponent implements OnInit {
   }
 
   loadTicketData() {
-    this.userApi.getUsers()
+    this.userService.getUsers()
       .subscribe((data: User[]) => {
         this.users = data
 

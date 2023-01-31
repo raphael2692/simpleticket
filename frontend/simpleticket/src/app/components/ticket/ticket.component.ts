@@ -5,6 +5,7 @@ import { TicketService } from 'src/app/services/ticket.service';
 import { UserService } from 'src/app/services/user.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-ticket',
@@ -20,11 +21,12 @@ export class TicketComponent implements OnInit {
   userRequestedBy!: String
   userRequestedFor!: String
 
+
   constructor(
     private api: TicketService,
     private route: ActivatedRoute,
     private router: Router,
-    private userApi: UserService,
+    private userService: UserService,
     private authService: AuthService
   ) { }
 
@@ -33,7 +35,7 @@ export class TicketComponent implements OnInit {
     if (!this.authService.isTokenValid()) {
       this.router.navigate(['/login'])
     }
-
+    
     this.route.queryParams.subscribe(
       params => {
         this.ticketId = Number(params['id']);
@@ -48,9 +50,10 @@ export class TicketComponent implements OnInit {
     this.api.getTicket(this.ticketId)
     .subscribe(
       (ticketData) => {
-        this.userApi.getUser(ticketData.createdBy).subscribe(data => this.userCreator = data.email)
-        this.userApi.getUser(ticketData.requestedBy).subscribe(data => this.userRequestedBy = data.email)
-        this.userApi.getUser(ticketData.requestedFor).subscribe(data => this.userRequestedFor = data.email)
+      
+        this.userService.getUser(ticketData.createdBy).subscribe(data => this.userCreator = data.email)
+        this.userService.getUser(ticketData.requestedBy).subscribe(data => this.userRequestedBy = data.email)
+        this.userService.getUser(ticketData.requestedFor).subscribe(data => this.userRequestedFor = data.email)
         this.ticket = ticketData
         this.isLoaded.next(true)
       }
