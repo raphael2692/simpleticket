@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: Your Project API
+  title: simpleticket API
   version: 1.0.0
-  description: Your project description
+  description: simple troubl ticketing system
 paths:
   /api/token/:
     post:

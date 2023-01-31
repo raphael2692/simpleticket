@@ -30,6 +30,17 @@ ng s
 
 ```
 
+### Swagger url:
+- http://localhost:8000/api/schema/swagger-ui/
+- http://localhost:8000/api/schema/redoc/
+
+CLI: 
+
+```
+python manage.py spectacular --color --file schema.yml --validate
+```
+
+
 ## todo
 - minimal restyle
 - further code polish
