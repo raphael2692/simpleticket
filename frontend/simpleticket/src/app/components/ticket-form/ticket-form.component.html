@@ -1,4 +1,4 @@
-<div class="container" *ngIf="(isLoaded | async);">
+<div class="container" *ngIf="(isLoaded | async)?.valueOf() === true;">
 
   <form class="" #ticketForm="ngForm" (ngSubmit)="editMode === true ? updateTicket(ticketForm) : addTicket(ticketForm)">
 

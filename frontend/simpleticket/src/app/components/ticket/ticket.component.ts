@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket';
 import { TicketService } from 'src/app/services/ticket.service';
 import { UserService } from 'src/app/services/user.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { User } from 'src/app/models/user';
 
@@ -35,31 +35,31 @@ export class TicketComponent implements OnInit {
     if (!this.authService.isTokenValid()) {
       this.router.navigate(['/login'])
     }
-    
+
     this.route.queryParams.subscribe(
       params => {
         this.ticketId = Number(params['id']);
         this.loadTicketData()
 
-      },
-      error => console.log(error)
+      }
     )
   }
 
 
   loadTicketData() {
     this.api.getTicket(this.ticketId)
-    .subscribe(
-      (ticketData) => {
-      
-        this.userService.getUser(ticketData.createdBy).subscribe(data => this.userCreator = data.email)
-        this.userService.getUser(ticketData.requestedBy).subscribe(data => this.userRequestedBy = data.email)
-        this.userService.getUser(ticketData.requestedFor).subscribe(data => this.userRequestedFor = data.email)
-        this.ticket = ticketData
-        this.isLoaded.next(true)
-      },
-      error => console.log(error)
-    )
+      .pipe(
+        tap((ticketData) => {
+          this.userService.getUser(ticketData.createdBy).subscribe(data => this.userCreator = data.email)
+          this.userService.getUser(ticketData.requestedBy).subscribe(data => this.userRequestedBy = data.email)
+          this.userService.getUser(ticketData.requestedFor).subscribe(data => this.userRequestedFor = data.email)
+          this.ticket = ticketData
+        }
+        )
+      )
+      .subscribe(
+        () => this.isLoaded.next(true)
+      )
   }
 
 
@@ -69,9 +69,6 @@ export class TicketComponent implements OnInit {
       this.api.deleteTicket(id).subscribe(
         () => {
           this.router.navigate(["/ticketall"])
-        },
-        error => {
-          console.log(error);
         }
       )
   }

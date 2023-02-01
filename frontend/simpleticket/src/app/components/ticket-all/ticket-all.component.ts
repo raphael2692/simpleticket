@@ -3,8 +3,7 @@ import { TicketService } from 'src/app/services/ticket.service';
 import { Router } from '@angular/router';
 import { Ticket } from './../../models/ticket';
 import { AuthService } from 'src/app/auth/auth.service';
-import { BehaviorSubject } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-ticket-all',
@@ -35,40 +34,46 @@ export class TicketAllComponent implements OnInit {
 
 
     this.loadTicketData()
-    this.api.onAddedTicket.subscribe(data => {
-      this.loadTicketData()
-      console.log(data)
-    },
-    error => console.log(error)
-    )
-
+    this.api.onAddedTicket
+      .pipe(
+        tap(
+          () => {
+            this.loadTicketData()
+            // console.log(data)
+          }
+        )
+      )
   }
-
 
 
   deleteTicket(id: number) {
-    if (!id) return console.log(id + ' non trovato')
-    if (confirm('Sei sicuro di vole eliminare il ticket ' + id + ' ?') == true)
-      this.api.deleteTicket(id).subscribe(
-        data => {
-          this.router.navigate(["/ticketall"])
-          this.loadTicketData()
-        },
-        error => console.log(error))
+    if (!id) return console.log('Ticket ' + id + ' not found')
+    if (confirm('Are you sure to delete ticket ' + id + ' ?') == true)
+      this.api.deleteTicket(id)
+        .subscribe(
+            () => {
+              this.router.navigate(["/ticketall"])
+              this.loadTicketData()
+            }
+ 
+        )
   }
-
 
   loadTicketData() {
-
     this.api.getTickets()
-      .subscribe((tickets: Ticket[]) => {
-        this.tickets = tickets
-        this.tickets = this.tickets.filter(ticket => ticket.id === this.authService.getLoggedInUser().id)
-        this.isLoaded.next(true)
-      },
-      error => console.log(error));
+      .pipe(
+        tap(
+          (tickets: Ticket[]) => {
+            this.tickets = tickets
+            this.tickets = this.tickets.filter(
+              ticket => 
+              (ticket.createdBy || ticket.requestedBy || ticket.requestedFor ) === this.authService.getLoggedInUser().url)
+            this.isLoaded.next(true)
+          }
+        )
+      )
+      .subscribe(() => this.isLoaded.next(true))
   }
-
 }
 
 

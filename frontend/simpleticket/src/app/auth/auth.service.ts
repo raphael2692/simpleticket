@@ -45,23 +45,17 @@ export class AuthService {
       .subscribe(
         res => {
           this.setSession(res)
-          console.log(res)
-        },
-        error => console.log(error)
+        }
       );
   }
 
   private setSession(token: Token) {
     const payload = this.jwt.decodeToken(token.access)
-    // console.log(payload)
     const expiresAt = moment().add(payload.exp, 'second');
     localStorage.setItem('access_token', token.access);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
-    // console.log(token)
-    // console.log(token.access)
     this.userService.getUserById(payload.user_id).subscribe(
       (data) => {
-
         localStorage.setItem("logged_user", JSON.stringify(data))
         console.log(data)
       }
@@ -94,7 +88,7 @@ export class AuthService {
 
   isLoggedIn(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable();
-    
+
   }
 
   getLoggedInUser() {

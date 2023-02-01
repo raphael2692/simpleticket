@@ -3,7 +3,7 @@ import { TicketService } from 'src/app/services/ticket.service';
 import { UserService } from 'src/app/services/user.service';
 import { Ticket } from 'src/app/models/ticket';
 import { User } from 'src/app/models/user';
-import {  NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 
 
 import { BehaviorSubject, Observable, OperatorFunction } from 'rxjs';
@@ -42,8 +42,7 @@ export class TicketFormComponent implements OnInit {
     this.activatedRoute.queryParams
       .subscribe(
         params => {
-          // console.log(params)
-          if (params["edit"] === 'true') { // TODO: I should handle this better
+          if (params["edit"] === 'true') {
             this.editMode = true
             this.id = params["id"]
             this.loadTicketData()
@@ -57,31 +56,25 @@ export class TicketFormComponent implements OnInit {
               description: "",
               completed: false,
             };
+
             this.isLoaded.next(true)
 
           }
-        },
-        error => console.log(error)
+        }
       )
-  }
-  updateStats() {
-    throw new Error('Method not implemented.');
   }
 
   loadTicketData() {
     this.userService.getUsers()
       .subscribe((data: User[]) => {
         this.users = data
-
         this.ticketApi.getTicket(this.id).subscribe(data => {
-
           this.ticketModel = data
           this.ticketModel.createdBy = this.users.filter(user => user.url === this.ticketModel.createdBy)[0]
           this.ticketModel.requestedBy = this.users.filter(user => user.url === this.ticketModel.requestedBy)[0]
           this.ticketModel.requestedFor = this.users.filter(user => user.url === this.ticketModel.requestedFor)[0]
           this.isLoaded.next(true)
-        },
-        error => console.log(error)
+        }
         )
       });
 
@@ -91,17 +84,12 @@ export class TicketFormComponent implements OnInit {
     form.value["createdBy"] = form.value["createdBy"]["url"];
     form.value["requestedBy"] = form.value["requestedBy"]["url"];
     form.value["requestedFor"] = form.value["requestedFor"]["url"];
-    // console.log(form.value)
-    form.value["completed"] = false
+    form.value["completed"] = false // set default
 
     this.ticketApi.addTicket(form.value).subscribe(
-      data => {
+      () => {
         console.log("Ticket created correctly.")
         this.ticketApi.onAddedTicket.next(this.ticketModel);
-      },
-      error => {
-        console.log("Ticket creation error: ")
-        console.log(error);
       }
     )
     form.reset()
@@ -114,14 +102,8 @@ export class TicketFormComponent implements OnInit {
     form.value["requestedFor"] = form.value["requestedFor"]["url"];
 
     this.ticketApi.updateTicket(this.id, form.value).subscribe(
-      data => {
-        // console.log(data);
+      () => {
         this.ticketApi.onAddedTicket.next(this.ticketModel)
-
-      },
-      error => {
-        console.log("Error:")
-        console.log(error);
       }
     )
     form.reset()

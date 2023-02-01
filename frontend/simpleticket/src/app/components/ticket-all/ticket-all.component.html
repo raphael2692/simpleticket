@@ -1,5 +1,5 @@
 
-<div class="container" *ngIf="(isLoaded | async)">
+<div class="container" *ngIf="(isLoaded | async)?.valueOf() === true">
 
 
     <h2 class="display-3 py-3">My tickets</h2>
