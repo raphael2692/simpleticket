@@ -60,7 +60,8 @@ export class TicketFormComponent implements OnInit {
             this.isLoaded.next(true)
 
           }
-        }
+        },
+        error => console.log(error)
       )
   }
   updateStats() {
@@ -79,7 +80,8 @@ export class TicketFormComponent implements OnInit {
           this.ticketModel.requestedBy = this.users.filter(user => user.url === this.ticketModel.requestedBy)[0]
           this.ticketModel.requestedFor = this.users.filter(user => user.url === this.ticketModel.requestedFor)[0]
           this.isLoaded.next(true)
-        }
+        },
+        error => console.log(error)
         )
       });
 

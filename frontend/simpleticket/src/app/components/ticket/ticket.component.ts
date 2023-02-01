@@ -41,7 +41,8 @@ export class TicketComponent implements OnInit {
         this.ticketId = Number(params['id']);
         this.loadTicketData()
 
-      }
+      },
+      error => console.log(error)
     )
   }
 
@@ -56,7 +57,8 @@ export class TicketComponent implements OnInit {
         this.userService.getUser(ticketData.requestedFor).subscribe(data => this.userRequestedFor = data.email)
         this.ticket = ticketData
         this.isLoaded.next(true)
-      }
+      },
+      error => console.log(error)
     )
   }
 

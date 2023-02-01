@@ -38,7 +38,8 @@ export class TicketAllComponent implements OnInit {
     this.api.onAddedTicket.subscribe(data => {
       this.loadTicketData()
       console.log(data)
-    }
+    },
+    error => console.log(error)
     )
 
   }
@@ -52,7 +53,8 @@ export class TicketAllComponent implements OnInit {
         data => {
           this.router.navigate(["/ticketall"])
           this.loadTicketData()
-        })
+        },
+        error => console.log(error))
   }
 
 
@@ -63,7 +65,8 @@ export class TicketAllComponent implements OnInit {
         this.tickets = tickets
         this.tickets = this.tickets.filter(ticket => ticket.id === this.authService.getLoggedInUser().id)
         this.isLoaded.next(true)
-      });
+      },
+      error => console.log(error));
   }
 
 }

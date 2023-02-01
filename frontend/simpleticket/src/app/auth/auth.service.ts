@@ -46,7 +46,8 @@ export class AuthService {
         res => {
           this.setSession(res)
           console.log(res)
-        }
+        },
+        error => console.log(error)
       );
   }
 
