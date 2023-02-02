@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn : Observable<boolean>;
-  isCollapsed: Boolean = false;
+  isCollapsed: Boolean = true;
   constructor(public authService : AuthService ) { 
     this.isLoggedIn = authService.isLoggedIn();
   }

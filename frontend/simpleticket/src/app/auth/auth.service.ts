@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { User } from '../models/user';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 
@@ -97,4 +97,13 @@ export class AuthService {
     return parsedUser
   }
 
+  public signup(email: string | undefined | null, username: string | undefined | null, password: string | undefined | null, password2: string | undefined | null) {
+    return this.http.post<Object>('http://localhost:8000/register', { email, username, password, password2 })
+    .pipe(
+      tap ( (res) => {
+        console.log("")
+      }
+      )
+    )
+  }
 }

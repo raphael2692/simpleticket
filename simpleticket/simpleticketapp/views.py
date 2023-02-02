@@ -52,40 +52,7 @@ class TicketViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     #permission_classes = []
 
-
-
-
-# class DecoratedTokenObtainPairView(TokenObtainPairView):
-#     @swagger_auto_schema(
-#         responses={
-#             status.HTTP_200_OK: TokenObtainPairResponseSerializer,
-#         }
-#     )
-#     def post(self, request, *args, **kwargs):
-#         return super().post(request, *args, **kwargs)
-
-
-
-# class DecoratedTokenRefreshView(TokenRefreshView):
-#     @swagger_auto_schema(
-#         responses={
-#             status.HTTP_200_OK: TokenRefreshResponseSerializer,
-#         }
-#     )
-#     def post(self, request, *args, **kwargs):
-#         return super().post(request, *args, **kwargs)
-
-
-# Class based view to Get User Details using Token Authentication
-class UserDetailAPI(APIView):
-#   authentication_classes = (TokenAuthentication,)
-  permission_classes = (AllowAny,)
-  def get(self,request,*args,**kwargs):
-    user = User.objects.get(id=request.user.id)
-    serializer = UserSerializer(user)
-    return Response(serializer.data)
-
 #Class based view to register user
 class RegisterUserAPIView(generics.CreateAPIView):
-  permission_classes = (AllowAny,)
+  permission_classes = []
   serializer_class = RegisterSerializer

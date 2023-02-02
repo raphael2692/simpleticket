@@ -1,1 +1,65 @@
-<p>signup works!</p>
+<div class="container ">
+
+    <div class="row ">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <h2 class="display-3 py-3">Sign up</h2>
+                <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group py-3">
+                        <label for="email">
+                            email
+                        </label>
+                        <div *ngIf="signupError" [ngStyle]="{'color': 'red'}">
+                            <ul>
+                                <li *ngFor='let error of signupError.emailError'>
+                                    {{ error }}
+                                </li>
+                            </ul>
+                        </div>
+                        <input id="email" class="form-control input-sm" type="string" formControlName="email">
+                    </div>
+
+                    <div class="form-group py-3 ">
+                        <label for="username" class="">
+                            username
+                        </label>
+                        <div *ngIf="signupError" [ngStyle]="{'color': 'red'}">
+                            <ul>
+                                <li *ngFor='let error of signupError.usernameError'>
+                                    {{ error }}
+                                </li>
+                            </ul>
+                        </div>
+                        <input id="username" type="text" class="form-control input-sm" formControlName="username">
+                    </div>
+
+                    <div class="form-group py-3">
+                        <label for="password">
+                            password
+                        </label>
+                        <div *ngIf="signupError" [ngStyle]="{'color': 'red'}">
+                            <ul>
+                                <li *ngFor='let error of signupError.passwordError'>
+                                    {{ error }}
+                                </li>
+                            </ul>
+                        </div>
+                        <input id="address" class="form-control input-sm" type="password" formControlName="password">
+                    </div>
+
+                    <div class="form-group py-3">
+                        <label for="password2">
+                            repeat password
+                        </label>
+                        <input id="password2" class="form-control input-sm" type="password" formControlName="password2">
+                    </div>
+                    <button class=" button  btn btn-primary" type="submit">Sign up</button>
+                </form>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+
+    </div>

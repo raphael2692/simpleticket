@@ -7,10 +7,17 @@ Schema: Ticket <- User
 ## Features
 
 1. django admin panel
-2. CRUD support
+2. CRUD operations (angular)
 3. jwt authentication
 4. related records management
-
+5. login management (angular)
+6. signup management (django + angular)
+7. router, interceptors, protected views (angular)
+8. admin panel (django)
+9. openapi 3.0 (swagger, redoc)
+10. input typehead (angular)
+11. angular bootstrap (responsive navbar ecc.)
+12. other angular features
 
 ## setup
 
@@ -44,5 +51,4 @@ python manage.py spectacular --color --file schema.yml --validate
 ## todo
 - minimal restyle
 - further code polish
-- refresh token support on frontend
 - fix time zone gap

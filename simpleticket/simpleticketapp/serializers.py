@@ -55,11 +55,6 @@ class TokenRefreshResponseSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         raise NotImplementedError()
 
-#Serializer to Get User Details using Django Token Authentication
-class UserSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = User
-    fields = ["id", "username", "email"]
 
 #Serializer to Register User
 class RegisterSerializer(serializers.ModelSerializer):
