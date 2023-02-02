@@ -19,6 +19,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ErrorInterceptor } from './services/error.interceptor';
+import { SignupComponent } from './auth/signup/signup.component';
 
 
 
@@ -32,6 +33,7 @@ import { ErrorInterceptor } from './services/error.interceptor';
     TicketFormComponent,
     ModalComponent,
     LoginComponent,
+    SignupComponent,
 
 
   ],
