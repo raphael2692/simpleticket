@@ -19,7 +19,12 @@ Schema: Ticket <- User
 11. angular bootstrap (responsive navbar ecc.)
 12. other angular features
 
-## setup
+
+## setup (docker)
+```
+sudo docker-compose build up
+```
+## setup (shell)
 
 ```
 # backend
@@ -37,12 +42,12 @@ ng s
 
 ```
 
-### Swagger url:
+### OpenApi url:
 - http://localhost:8000/api/schema/swagger-ui/
 - http://localhost:8000/api/schema/redoc/
 
-CLI: 
 
+#### OpenApi CLI generation: 
 ```
 python manage.py spectacular --color --file schema.yml --validate
 ```

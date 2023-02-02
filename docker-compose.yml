@@ -1,0 +1,20 @@
+version: "3"
+services:
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend/angular
+      dockerfile: Dockerfile
+    ports:
+      - 4200:4200
+    volumes:
+      - ./frontend/angular:/app
