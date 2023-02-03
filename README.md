@@ -6,34 +6,30 @@ Schema: Ticket <- User
 
 ## Features
 
-1. django admin panel
-2. CRUD operations (angular)
-3. jwt authentication
-4. related records management
-5. login management (angular)
-6. signup management (django + angular)
-7. router, interceptors, protected views (angular)
-8. admin panel (django)
-9. openapi 3.0 (swagger, redoc)
+1.  django admin panel
+2.  CRUD operations (angular)
+3.  jwt authentication
+4.  related records management
+5.  login management (angular)
+6.  signup management (django + angular)
+7.  router, interceptors, protected views (angular)
+8.  admin panel (django)
+9.  openapi 3.0 (swagger, redoc)
 10. input typehead (angular)
 11. angular bootstrap (responsive navbar ecc.)
 12. other angular features
 
-
 ## setup (docker)
 ```
-sudo docker-compose build up
+sudo docker-compose up --build
 ```
-## setup (shell)
+## setup (shell -not recomendend)
 
 ```
 # backend
 python -m venv env 
 source env/bin/activate
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py createsuperuser
-python manage.py runserver
+sh backend/start.sh
 
 # frontend
 cd frontend/simpleticket
