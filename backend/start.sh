@@ -9,4 +9,4 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser --noinput --username admin --email admin@email.com  --skip-checks
 
-gunicorn simpleticket.wsgi:application --bind 0.0.0.0:8000
+gunicorn simpleticket.wsgi:application --bind 0.0.0.0:8000 --reload
