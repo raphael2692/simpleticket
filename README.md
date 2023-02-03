@@ -37,6 +37,11 @@ npm install
 ng s
 
 ```
+### Important!
+In shell setup you have 2 options for db:
+- build up a postgres service with the same conf as in docker-compose (hostname:db and so on)
+- change django settings to set back sqlite3
+
 
 ### OpenApi url:
 - http://localhost:8000/api/schema/swagger-ui/
@@ -49,7 +54,7 @@ python manage.py spectacular --color --file schema.yml --validate
 ```
 
 
-## todo
+## TODO
 - minimal restyle
 - further code polish
 - fix time zone gap
