@@ -26,7 +26,7 @@ from simpleticket.simpleticketapp import views
 from rest_framework import permissions
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -51,3 +51,4 @@ urlpatterns = [
     path('register',views.RegisterUserAPIView.as_view()),
 
 ]
+urlpatterns += staticfiles_urlpatterns()
