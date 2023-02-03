@@ -1,7 +1,7 @@
 <div class="container" *ngIf="(isLoaded | async)?.valueOf() === true;">
 
   <form class="" #ticketForm="ngForm" (ngSubmit)="editMode === true ? updateTicket(ticketForm) : addTicket(ticketForm)">
-<!-- 
+    <!-- 
       <p>editMode {{ editMode | json }}</p>
       <p>model binding debug: {{ ticketModel | json }}</p> -->
 
@@ -56,7 +56,7 @@
 
         <div class="form-group ticketRequestedBy">
           <label class="pt-3" for="requestedBy">
-            <h6>RequestedBy (typehead)</h6>
+            <h6>RequestedBy</h6>
           </label>
           <input id="requestedBy" name="requestedBy" type="text" class="form-control" [ngbTypeahead]="searchUser"
             [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter"
@@ -68,7 +68,7 @@
 
         <div class="form-group requestedFor">
           <label class="pt-3" for="requestedFor">
-            <h6>RequestedFor (typehead)</h6>
+            <h6>RequestedFor</h6>
           </label>
           <input id="requestedFor" name="requestedFor" type="text" class="form-control" [ngbTypeahead]="searchUser"
             [resultFormatter]="userResultFormatter" [inputFormatter]="userInputFormatter"

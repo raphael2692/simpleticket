@@ -18,10 +18,6 @@ from django.urls import include, path
 from django.shortcuts import redirect
 from rest_framework import routers
 from simpleticket.simpleticketapp import views
-# from rest_framework_simplejwt.views import (
-#     TokenObtainPairView,
-#     TokenRefreshView,
-# )
 
 from rest_framework import permissions
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
@@ -37,15 +33,11 @@ router.register(r'tickets', views.TicketViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),   
     path('api/token/', views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', views.TokenRefreshView.as_view(), name='token_refresh'), 
-    # YOUR PATTERNS
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    # Optional UI:
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    # path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     # signup
     path('register',views.RegisterUserAPIView.as_view()),
