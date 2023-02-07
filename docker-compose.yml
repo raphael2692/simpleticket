@@ -12,7 +12,7 @@ services:
     depends_on:
       - db
 
-  frontend:
+  angular-fe:
     build:
       context: ./frontend/angular
       dockerfile: Dockerfile
@@ -30,7 +30,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - 5432:5432
+      - 5433:5432
 
   pgadmin:
     image: dpage/pgadmin4
@@ -45,6 +45,17 @@ services:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
       - db
+
+  react-fe:
+    build:
+      context: ./frontend/react-fe
+      dockerfile: Dockerfile
+    ports:
+      - 3001:3001
+    volumes:
+      - ./frontend/react-fe:/app
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
