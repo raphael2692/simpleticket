@@ -1,9 +1,6 @@
 # Pull python image
 FROM python:3.10-alpine
 
-# Pull python image
-FROM python:3.10-alpine
-
 # Set work directory
 COPY . /app 
 WORKDIR /app
